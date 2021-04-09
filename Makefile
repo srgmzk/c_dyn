@@ -16,7 +16,7 @@
 TARGET: ll.o libll.a tree.o libtree.a main.o main 
 
 CC=gcc
-CFLAGS=-Wall -g 
+CFLAGS=-Wall -g -no-pie -ggdb3
 LDLIBS=
 
 main: main.o

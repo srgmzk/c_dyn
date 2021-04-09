@@ -74,7 +74,7 @@ int main()
 		new_item = &A_node->ll_int;
 		res = add_node( head_int, new_item );
 #endif
-	print_int_node( head_int );	
+//	print_int_node( head_int );	
 /*
 	for (i=10; i<20; i++)
 	{

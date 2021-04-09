@@ -19,7 +19,7 @@
 #include "tree.h"
 #include <assert.h>
 
-#define MAX_PREFIX_SIZE(depth) ((depth)*4+4)
+#define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
 void add_node_tree(branch_tree *root, branch_tree *new)
 {
@@ -195,20 +195,18 @@ void walk_tree_preorder(branch_tree **root,
 			arr[idx++] = curr;
 		}
 	}	
-
-	for (int i = 0; i < idx ; i++)
+    #if 0 
+	int i = 0;
+	for (i = 0; i < idx ; i++)
 	{
 
-   #if 1  
-		if (arr[i])
-		{
+
 			val = (int)GET_NODE_VAL(arr[i]);
 			printf(" %d ", val);
-		//	PRINT_ARRAY_TREE(arr[i]);
-		 }
-	#endif
+	
 	}
 	printf("\n");
+	#endif
 }
 
 void walk_tree_postorder(branch_tree *root, 
@@ -368,8 +366,10 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 
  	char dfl_prefix[MAX_PREFIX_SIZE(depth)];
  	char new_prefix[MAX_PREFIX_SIZE(depth)];
- 	char one_branch[MAX_PREFIX_SIZE(depth)];
+// 	char new_prefix[100];
 
+ 	//char one_branch[MAX_PREFIX_SIZE(depth)];
+	char *one_branch;// = malloc(sizeof(char));
 	memset(dfl_prefix, '\0', (MAX_PREFIX_SIZE(depth)));
 	branch_tree *parent = root, *curr = root; 
 
@@ -377,7 +377,6 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 
 	val = (int)GET_NODE_VAL(root);
 	printf("%d .\n", val);
-
 	i = 0;
 	curr = root;
 
@@ -419,12 +418,14 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 
 				val = (int)GET_NODE_VAL(curr);
 				sprintf(val_str, "[%d]R", val );
-
+				one_branch = malloc((500 + strlen(dfl_prefix) + strlen(val_str) + strlen(val_str))*sizeof(char)); 
+					
 				PRINT_LEAF(dfl_prefix, one_branch, "", val_str); 
-
+				
 				printf("%s\n", one_branch);
 				sprintf(new_prefix, "%s", dfl_prefix);
 				x_offset = 4;
+				free(one_branch);
 			}
 
 		}
@@ -435,10 +436,11 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 			x_offset += 4;
 			val = (int)GET_NODE_VAL(curr->left);
 			sprintf(val_str, "[%d]L", val );
+			one_branch = malloc((500 + strlen(offset) + strlen(dfl_prefix) + strlen(val_str))*sizeof(char)); 
 			PRINT_LEAF(dfl_prefix, one_branch, offset, val_str); 
 			printf("%s\n", one_branch);
 			sprintf(one_branch, "%s", dfl_prefix );
-
+			free(one_branch);
 		}	
 		else
 		{	
@@ -447,9 +449,14 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 
 			if ( IS_LEAF(curr) )
 			{
+
+				one_branch = malloc((500 + strlen(offset) + strlen(dfl_prefix) + strlen("[NN]L"))*sizeof(char)); 
+	
 				PRINT_LEAF(dfl_prefix, one_branch, offset, "[NN]L" ); 
 				printf("%s\n", one_branch);
 				sprintf(one_branch, "%s", dfl_prefix );
+				free(one_branch);
+
 			}
 
 		}
@@ -461,9 +468,12 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 			{
 				val = (int)GET_NODE_VAL(curr->right);
 				sprintf(val_str, "[%d]R", val );
+				one_branch = malloc((500 + strlen(offset) + strlen(dfl_prefix) + strlen(val_str))*sizeof(char)); 
 				PRINT_LEAF(dfl_prefix, one_branch, offset, val_str); 
-				printf("%s\n",  one_branch);
 
+		
+				printf("%s\n",  one_branch);
+				free(one_branch);
 			}
 
 		}	
@@ -471,12 +481,16 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
 		{
 			if ( IS_LEAF(curr) )
 			{
+
+				one_branch = malloc((500 + strlen(offset) + strlen(dfl_prefix) + strlen("[NN]R"))*sizeof(char)); 
 				PRINT_LEAF(dfl_prefix, one_branch, offset, "[NN]R"); 
 				printf("%s\n",  one_branch);
+				free(one_branch);
 			}
 
 		}
 
+		
 		if (HAVE_TWINS(curr))
 		{
 			sprintf(new_prefix, "%s%s%s", dfl_prefix, offset, "|");
