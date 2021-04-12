@@ -132,11 +132,12 @@ typedef struct ll_node_tree
 void add_node_tree(branch_tree *root, branch_tree *new_nodea);
 void walk_tree_inorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *));
 void walk_tree_postorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *));
-void walk_tree_preorder(branch_tree **root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *));
+//void walk_tree_preorder(branch_tree **root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *));
+
+void walk_tree_preorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
 
 void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth);
 
 void print_parent(tree_node *parent);
-
-
+void print_item(branch_tree *branch, void *n );
 #endif

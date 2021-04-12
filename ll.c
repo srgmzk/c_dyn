@@ -30,11 +30,13 @@
 #include "ll.h"
 
 
+
+/*
 int add_node(list_head *head, list_head *new_item) 
 {
 	list_head *tmp	= head;
 
-/*
+	#if 0
 	printf("\n\n\n=================================================\n");	
 	printf("!   new_item (input)           :%p\n", new_item);
 	printf("-------------------------------------------------\n");
@@ -46,7 +48,7 @@ int add_node(list_head *head, list_head *new_item)
 	printf("!   tmp (head) :%p\n",tmp);
 	
 	printf("!   tmp->next (head->next) :%p\n",tmp->next);
-*/		
+	#endif
 
 	while ( tmp->next )
 	{
@@ -60,6 +62,9 @@ int add_node(list_head *head, list_head *new_item)
 
 	return 0;	
 }
+*/
+
+		
 
 int insert_node(list_head *head, list_head *new_node)
 {
@@ -80,7 +85,7 @@ int insert_node(list_head *head, list_head *new_node)
 	return 0;
 }
 
-ll_node_A *new_A_node(int val)
+ll_node_A *new_int_node(int val)
 {
 	
 	ll_node_A *node = malloc(sizeof(ll_node_A));
@@ -88,10 +93,9 @@ ll_node_A *new_A_node(int val)
 	return node;
 }
 
-int remove_last(list_head *head, ll_node_A **ret)
+int remove_last(list_head *head, ll_node_A *ret)
 {
 	ll_node_A *node = NULL; 
-	 
 
 	if (head->next == NULL)
 		return 0;
@@ -100,28 +104,36 @@ int remove_last(list_head *head, ll_node_A **ret)
 		head = head->next;
 
 	list_head *tmp = head->prev; 
-	
-	node = list_entry(*head, ll_node_A, ll_int );
-
 	tmp->next = NULL;
 
-	if (ret)
-		memcpy(*ret, node, sizeof(ll_node_A));
+	node = (ll_node_A*)list_entry(*head, ll_node_A, ll_int );
 
+	if (ret)
+	{
+		memcpy(ret, node, sizeof(ll_node_A));
+	}
+	
 	free(node);
 	return 0;
 }
 
-int remove_first(list_head *head, ll_node_A **ret)
+int remove_first(list_head *head, ll_node_A *ret)
 {
 	ll_node_A *node = NULL; 
+	list_head *lnode = NULL;
+	
 	if (head->next == NULL)
 		return 0;
 
-	node = list_entry( *(head->next), ll_node_A, ll_int );
-	head->next = head->next->next;
+	node = (ll_node_A*)list_entry( *head->next, ll_node_A, ll_int );
+	lnode = node->ll_int.next;
+	head->next = lnode;
+
+
 	if (ret)
-		memcpy(*ret, node, sizeof(ll_node_A));
+		memcpy(ret, node, sizeof(ll_node_A));
+
+
 	free(node);
 	return 0;
 }

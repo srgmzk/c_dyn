@@ -1,92 +1,131 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
-!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
-!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
-!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mos/zoo/c_dyn/	//
-!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
-!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
-!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Add	Fpointers/00_func_pointers.c	/^float Add(float a, float b)$/;"	f
+ArithmaticOps	Fpointers/00_func_pointers.c	/^	pfnCalculator ArithmaticOps;$/;"	m	struct:S_sArithMaticOps	file:
 CC	Makefile	/^CC=gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-Wall -g -no-pie -ggdb3$/;"	m
-GET_NODE_OFFSET	tree.h	/^#define GET_NODE_OFFSET(/;"	d
-GET_NODE_VAL	tree.h	/^#define GET_NODE_VAL(/;"	d
-HAVE_TWINS	tree.h	/^#define HAVE_TWINS(/;"	d
-INIT_HEAD	ll.h	/^#define INIT_HEAD(/;"	d
-IS_LEAF	tree.h	/^#define IS_LEAF(/;"	d
-IS_LEFT	tree.h	/^#define IS_LEFT(/;"	d
-IS_NODE	tree.h	/^#define IS_NODE(/;"	d
-IS_PARENT	tree.h	/^#define IS_PARENT(/;"	d
-IS_RIGHT	tree.h	/^#define IS_RIGHT(/;"	d
+CFLAGS	Makefile	/^CFLAGS=-Wall -g -pg $/;"	m
+DisplayMessage	Fpointers/00_func_pointers.c	/^	pfnMessage DisplayMessage;$/;"	m	struct:S_sArithMaticOps	file:
+Div	Fpointers/00_func_pointers.c	/^float Div(float a, float b)$/;"	f
+GET_NODE_OFFSET	tree.h	63;"	d
+GET_NODE_VAL	tree.h	59;"	d
+HAVE_TWINS	tree.h	31;"	d
+INIT_HEAD	ll.h	42;"	d
+IS_LEAF	tree.h	29;"	d
+IS_LEFT	tree.h	39;"	d
+IS_NODE	tree.h	33;"	d
+IS_PARENT	tree.h	82;"	d
+IS_RIGHT	tree.h	36;"	d
 LDLIBS	Makefile	/^LDLIBS=$/;"	m
-LEFT_TRAV	tree.h	/^#define LEFT_TRAV(/;"	d
-LL_H	ll.h	/^#define LL_H$/;"	d
-MAX_LIST_SIZE	ll.h	/^#define MAX_LIST_SIZE /;"	d
-MAX_PREFIX_SIZE	tree.c	/^#define MAX_PREFIX_SIZE(/;"	d	file:
-NODE_VAL	tree.h	/^#define NODE_VAL(/;"	d
-PRINT_ARRAY_TREE	tree.h	/^#define PRINT_ARRAY_TREE(/;"	d
-PRINT_IN_STACK	tree.h	/^#define PRINT_IN_STACK(/;"	d
-PRINT_LEAF	tree.h	/^#define PRINT_LEAF(/;"	d
-PRINT_OFFSET	tree.h	/^#define PRINT_OFFSET(/;"	d
-PRINT_OUT_STACK	tree.h	/^#define PRINT_OUT_STACK(/;"	d
-RIGHT_TRAV	tree.h	/^#define RIGHT_TRAV(/;"	d
-STACK_IS_NULL	tree.h	/^#define STACK_IS_NULL(/;"	d
-TARGET	Makefile	/^TARGET: ll.o libll.a tree.o libtree.a main.o main $/;"	t
-TO_LEFT	tree.h	/^#define TO_LEFT(/;"	d
-TO_RIGHT	tree.h	/^#define TO_RIGHT(/;"	d
-TREE_H	tree.h	/^#define TREE_H$/;"	d
-add_node	ll.c	/^int add_node(list_head *head, list_head *new_item) $/;"	f	typeref:typename:int
-add_node_tree	tree.c	/^void add_node_tree(branch_tree *root, branch_tree *new)$/;"	f	typeref:typename:void
-branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node	typeref:typename:branch_tree
+LEFT_TRAV	tree.h	42;"	d
+LL_H	ll.h	21;"	d
+LastMenuSubState	Fpointers/00_switch_fp1.c	/^    LastMenuSubState$/;"	e	enum:__anon2	file:
+LastMenustate	Fpointers/00_switch_fp1.c	/^    LastMenustate$/;"	e	enum:__anon1	file:
+MAX_LIST_SIZE	ll.h	28;"	d
+MAX_PREFIX_SIZE	tree.c	22;"	d	file:
+MenuStates	Fpointers/00_switch_fp1.c	/^} MenuStates;$/;"	t	typeref:enum:__anon1	file:
+MenuSubState1	Fpointers/00_switch_fp1.c	/^    MenuSubState1 = 0,$/;"	e	enum:__anon2	file:
+MenuSubState10	Fpointers/00_switch_fp1.c	/^    MenuSubState10,$/;"	e	enum:__anon2	file:
+MenuSubState2	Fpointers/00_switch_fp1.c	/^    MenuSubState2,$/;"	e	enum:__anon2	file:
+MenuSubState3	Fpointers/00_switch_fp1.c	/^    MenuSubState3,$/;"	e	enum:__anon2	file:
+MenuSubState4	Fpointers/00_switch_fp1.c	/^    MenuSubState4,$/;"	e	enum:__anon2	file:
+MenuSubState5	Fpointers/00_switch_fp1.c	/^    MenuSubState5,$/;"	e	enum:__anon2	file:
+MenuSubState6	Fpointers/00_switch_fp1.c	/^    MenuSubState6,$/;"	e	enum:__anon2	file:
+MenuSubState7	Fpointers/00_switch_fp1.c	/^    MenuSubState7,$/;"	e	enum:__anon2	file:
+MenuSubState8	Fpointers/00_switch_fp1.c	/^    MenuSubState8,$/;"	e	enum:__anon2	file:
+MenuSubState9	Fpointers/00_switch_fp1.c	/^    MenuSubState9,$/;"	e	enum:__anon2	file:
+MenuSubStates	Fpointers/00_switch_fp1.c	/^} MenuSubStates;$/;"	t	typeref:enum:__anon2	file:
+Menustate1	Fpointers/00_switch_fp1.c	/^    Menustate1 = 0,$/;"	e	enum:__anon1	file:
+Menustate2	Fpointers/00_switch_fp1.c	/^    Menustate2,$/;"	e	enum:__anon1	file:
+Menustate3	Fpointers/00_switch_fp1.c	/^    Menustate3,$/;"	e	enum:__anon1	file:
+Menustate4	Fpointers/00_switch_fp1.c	/^    Menustate4,$/;"	e	enum:__anon1	file:
+Message	Fpointers/00_func_pointers.c	/^void Message(const char *pcMessage, float fResult)$/;"	f
+Mul	Fpointers/00_func_pointers.c	/^float Mul(float a, float b)$/;"	f
+N	Fpointers/simple_fp.c	21;"	d	file:
+NODE_VAL	tree.h	67;"	d
+PRINT_ARRAY_TREE	tree.h	75;"	d
+PRINT_IN_STACK	tree.h	85;"	d
+PRINT_LEAF	tree.h	106;"	d
+PRINT_OFFSET	tree.h	101;"	d
+PRINT_OUT_STACK	tree.h	91;"	d
+PerformCalc	Fpointers/00_func_pointers.c	/^void PerformCalc(float x, float y, sArithMaticOps *funptr, const char *pcMessage)$/;"	f
+RIGHT_TRAV	tree.h	50;"	d
+RefferalCreditTransaction	Fpointers/00_switch_fp1.c	/^void RefferalCreditTransaction(void)$/;"	f
+RefferalReprintReceipt	Fpointers/00_switch_fp1.c	/^void RefferalReprintReceipt(void)$/;"	f
+RefundReprintReceipt	Fpointers/00_switch_fp1.c	/^void RefundReprintReceipt(void)$/;"	f
+RefundTransaction	Fpointers/00_switch_fp1.c	/^void RefundTransaction(void)$/;"	f
+STACK_IS_NULL	tree.h	97;"	d
+STR_BUFF	tree.c	374;"	d	file:
+S_sArithMaticOps	Fpointers/00_func_pointers.c	/^typedef struct S_sArithMaticOps$/;"	s	file:
+SaleCashTransaction	Fpointers/00_switch_fp1.c	/^void SaleCashTransaction(void)$/;"	f
+SaleCreditTransaction	Fpointers/00_switch_fp1.c	/^void SaleCreditTransaction(void)$/;"	f
+SaleDebitTransaction	Fpointers/00_switch_fp1.c	/^void SaleDebitTransaction(void)$/;"	f
+SaleReprintReceipt	Fpointers/00_switch_fp1.c	/^void SaleReprintReceipt(void)$/;"	f
+Sub	Fpointers/00_func_pointers.c	/^float Sub(float a, float b)$/;"	f
+TO_LEFT	tree.h	26;"	d
+TO_RIGHT	tree.h	27;"	d
+TREE_H	tree.h	20;"	d
+Transaction	Fpointers/00_switch_fp1.c	/^void Transaction(MenuStates State, MenuSubStates SubState)$/;"	f
+VoidReprintReceipt	Fpointers/00_switch_fp1.c	/^void VoidReprintReceipt(void)$/;"	f
+VoidTransaction	Fpointers/00_switch_fp1.c	/^void VoidTransaction(void)$/;"	f
+add_node	ll.h	60;"	d
+add_node_tree	tree.c	/^void add_node_tree(branch_tree *root, branch_tree *new)$/;"	f
+apply_for_each	Fpointers/simple_fp.c	/^int apply_for_each(void (*fp)(void *arg), void *arg)$/;"	f
+branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node
 branch_tree	tree.h	/^typedef struct branch_tree$/;"	s
 branch_tree	tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
-c_dyn	README.md	/^# c_dyn$/;"	c
-clean	Makefile	/^clean:$/;"	t
-container_of	ll.h	/^#define container_of(/;"	d
-fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f	typeref:typename:void
-for_each_entry	ll.h	/^#define for_each_entry(/;"	d
-insert_node	ll.c	/^int insert_node(list_head *head, list_head *new_node)$/;"	f	typeref:typename:int
-left	tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct:branch_tree *
-libll.a	Makefile	/^libll.a: ll.o$/;"	t
-libtree.a	Makefile	/^libtree.a: tree.o$/;"	t
-list_entry	ll.h	/^#define list_entry(/;"	d
+container_of	ll.h	33;"	d
+fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f
+for_each_entry	ll.h	39;"	d
+fp	Fpointers/simple_fp.c	/^void (*fp)(void *arg);$/;"	v
+iResult	Fpointers/00_func_pointers.c	/^	float iResult;$/;"	m	struct:S_sArithMaticOps	file:
+init_arr	Fpointers/simple_fp.c	/^void init_arr(void *item)$/;"	f
+insert_node	ll.c	/^int insert_node(list_head *head, list_head *new_node)$/;"	f
+left	tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
+list_entry	ll.h	36;"	d
 list_head	ll.h	/^typedef struct list_head$/;"	s
 list_head	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
-list_ptr	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head *
-ll.o	Makefile	/^ll.o: ll.c$/;"	t
-ll_int	ll.h	/^	list_head ll_int;$/;"	m	struct:ll_node_A	typeref:typename:list_head
+list_ptr	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
+ll_int	ll.h	/^	list_head ll_int;$/;"	m	struct:ll_node_A
 ll_node_A	ll.h	/^typedef struct ll_node_A$/;"	s
 ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
 ll_node_tree	tree.h	/^typedef struct ll_node_tree$/;"	s
 ll_node_tree	tree.h	/^} ll_node_tree;$/;"	t	typeref:struct:ll_node_tree
-ll_tree	tree.h	/^	list_head ll_tree;$/;"	m	struct:ll_node_tree	typeref:typename:list_head
-main	Makefile	/^main: main.o$/;"	t
-main	hash.c	/^int main()$/;"	f	typeref:typename:int
-main	main.c	/^int main()$/;"	f	typeref:typename:int
-main.o	Makefile	/^main.o: main.c$/;"	t
-new_A_node	ll.c	/^ll_node_A *new_A_node(int val)$/;"	f	typeref:typename:ll_node_A *
-next	ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head *
-node	tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree	typeref:typename:branch_tree *
-offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree	typeref:typename:unsigned int
-offsetof	ll.h	/^#define offsetof(/;"	d
-pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	typeref:typename:int
-pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	typeref:typename:int
-prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head *
-print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f	typeref:typename:void
-print_tree	tree.c	/^void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)$/;"	f	typeref:typename:void
-ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A *
-ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node *
-push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f	typeref:typename:void
-remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A **ret)$/;"	f	typeref:typename:int
-remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A **ret)$/;"	f	typeref:typename:int
-right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree *
-tree.o	Makefile	/^tree.o: tree.c$/;"	t
+ll_tree	tree.h	/^	list_head ll_tree;$/;"	m	struct:ll_node_tree
+main	Fpointers/00_func_pointers.c	/^int main()$/;"	f
+main	Fpointers/00_switch_fp1.c	/^void main(void)$/;"	f
+main	Fpointers/simple_fp.c	/^int main()$/;"	f
+main	hash.c	/^int main()$/;"	f
+main	main.c	/^int main()$/;"	f
+main	strln.c	/^int main()$/;"	f
+new_int_node	ll.c	/^ll_node_A *new_int_node(int val)$/;"	f
+next	ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
+node	tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree
+offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree
+offsetof	ll.h	30;"	d
+pfnCalculator	Fpointers/00_func_pointers.c	/^typedef float (*pfnCalculator)(float, float);$/;"	t	file:
+pfnMessage	Fpointers/00_func_pointers.c	/^typedef void (*pfnMessage)(const char *, float fResult);$/;"	t	file:
+pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
+pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
+prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
+print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f
+print_item	Fpointers/simple_fp.c	/^void print_item(void *item)$/;"	f
+print_item	tree.c	/^void print_item(branch_tree *branch, void *n)$/;"	f
+print_tree	tree.c	/^void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)$/;"	f
+ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
+ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
+push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f
+remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
+remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
+right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
+sArithMaticOps	Fpointers/00_func_pointers.c	/^} sArithMaticOps;$/;"	t	typeref:struct:S_sArithMaticOps	file:
 tree_node	tree.h	/^typedef struct tree_node$/;"	s
 tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
-val	ll.h	/^	int val;$/;"	m	struct:ll_node_A	typeref:typename:int
-val	tree.h	/^	int val;$/;"	m	struct:tree_node	typeref:typename:int
-walk_tree_inorder	tree.c	/^void walk_tree_inorder(branch_tree *root, $/;"	f	typeref:typename:void
-walk_tree_postorder	tree.c	/^void walk_tree_postorder(branch_tree *root, $/;"	f	typeref:typename:void
-walk_tree_preorder	tree.c	/^void walk_tree_preorder(branch_tree **root, $/;"	f	typeref:typename:void
+val	ll.h	/^	int val;$/;"	m	struct:ll_node_A
+val	tree.h	/^	int val;$/;"	m	struct:tree_node
+walk_tree_inorder	tree.c	/^void walk_tree_inorder(branch_tree *root, $/;"	f
+walk_tree_postorder	tree.c	/^void walk_tree_postorder(branch_tree *root, $/;"	f
+walk_tree_preorder	tree.c	/^void walk_tree_preorder(branch_tree *root, $/;"	f
