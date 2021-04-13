@@ -49,82 +49,58 @@ int main()
 		
 	}
 
-	//print_int_node(head_int);	
+	print_int_node( head_int );	
 
-
+	#if 0
 	for (i=10; i<20; i++)
 	{
 		a_item = malloc(sizeof(ll_node_A));
 		a_item->val = rand() % depth;
-
 		new_item = &(a_item->ll_int);
-
 		insert_node(head_int, new_item);
 	}
-
-/*
-	remove_last( head_int, NULL );
-	tmp_A_item = malloc(sizeof(ll_node_A));
-	remove_first( head_int, &tmp_A_item );
-*/
-
+	#endif
 
 	/*
 		BUILD TREE
 	*/
-	tree_node *MyTree = calloc(1, sizeof(tree_node));
-
-
-	root = &(MyTree->branch);
-
 	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
-	MyTree->val = tmp_item.val;	
+	init_root_tree(&root, (void *)&tmp_item.val);
 
-	count = 0;
+	count = 1;
+
 	#if 1 
-	for_each_entry( ll_node, ll_node_A, head_int )
+	for_each_entry( ll_node, ll_node_A, head_int->next )
 	{
 		tmp_item = (*list_entry( *ll_node, ll_node_A, ll_int ));
-		MyTree = calloc(1,sizeof(tree_node));
-		MyTree->val = tmp_item.val;
-		add_node_tree( root, &MyTree->branch ); 
+		init_node_tree(root, (void *)&tmp_item.val);
 		count++;
 	}
 
-	branch_tree *arr[depth];
-	#endif
-	//walk_tree_postorder(root, arr, depth, NULL);	
-	//walk_tree_inorder(root, arr, depth, NULL);	
-	//walk_tree_preorder(&root, arr, depth, NULL);	
-	//walk_tree_preorder(root, arr, depth, print_item, NULL);	
-	//print_tree(root, arr, depth);
 
-	printf("Remove all:\n");
-
+	printf("Remove list:\n");
 	count = 0;	
 	for_each_entry( ll_node, ll_node_A, head_int)
-	{
 		count++;
-	}
-
 	printf("count: %d\n", count);
-
-
 	for (i = 0; i < count; i++)
 	{
 		//res = remove_first( head_int, &tmp_item );
 		res = remove_last( head_int, &tmp_item );
 		//printf("removed: %d \n", tmp_item.val);
 	}
-		
-
-
 	printf("**************************\n");
-	print_int_node( head_int );	
+	#endif
 
-	free(MyTree);
+	//walk_tree_preorder(root, arr, depth, print_item, NULL);	
+	//walk_tree_postorder(root, arr, depth, print_tree_node, NULL);	
+
+	print_tree(root, depth);
+	delete_tree(root, depth);
+
+
+
 	free(head_int);
-
 
 
 	return 0;

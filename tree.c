@@ -21,7 +21,8 @@
 
 #define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
-void add_node_tree(branch_tree *root, branch_tree *new)
+
+int add_node_tree(branch_tree *root, branch_tree *new)
 {
 	assert(root);
 
@@ -54,7 +55,7 @@ void add_node_tree(branch_tree *root, branch_tree *new)
 			curr = TO_RIGHT(curr);
 
 		}
-		else return;
+		else return 1;
 
 		if (curr)
 			curr_node =	list_entry( *curr, tree_node, branch );
@@ -72,10 +73,41 @@ void add_node_tree(branch_tree *root, branch_tree *new)
 	{
 		parent->right = curr;
 	}
-	else return;
+	else return 1;
 
-	return;
+	return 0;
 }
+
+void init_node_tree(branch_tree *root, void *val)
+{
+	int *new_val = (int *)(val);
+	branch_tree *branch;
+	tree_node *Tree = calloc(1, sizeof(tree_node));
+	branch = &(Tree->branch);
+	Tree->val = *new_val;	
+
+	//printf("ADD ROOT: %d\n", MyTree->val);
+	if (add_node_tree( root, branch ))
+	{
+		printf("Double detected. Drop val %d\n", Tree->val);
+		free(Tree);  
+	}
+
+}
+
+
+void init_root_tree(branch_tree **root, void *val)
+{
+	int *new_val = (int *)(val);
+	tree_node *Tree = calloc(1, sizeof(tree_node));
+	*root = &(Tree->branch);
+	Tree->val = *new_val;	
+
+	//printf("ADD ROOT: %d\n", MyTree->val);
+
+	add_node_tree(*root, *root);
+}
+
 
 void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )
 {	
@@ -153,12 +185,37 @@ void fill_stack(list_head **head, branch_tree **node )
 	}
 }
 
+/*
+	Callbacks routines
+*/
 
-void print_item(branch_tree *branch, void *n)
+void print_tree_node(branch_tree *branch, void *n)
 {
-		
 	PRINT_ARRAY_TREE(branch);	
 }	
+
+void delete_tree_node(branch_tree *node, void *n)
+{
+	tree_node *item = list_entry(*node, tree_node, branch );
+	free(item);
+}
+
+/*
+
+*/
+
+void delete_tree(branch_tree *root, unsigned depth)
+{
+	branch_tree *arr[depth]; // 100 - num of nodes in tree
+	walk_tree_postorder(root, arr, depth, delete_tree_node, NULL);
+}
+
+
+
+
+
+
+
 
 void walk_tree_preorder(branch_tree *root, 
 						branch_tree **arr,
@@ -177,7 +234,8 @@ void walk_tree_preorder(branch_tree *root,
 	branch_tree *curr = root;
 
 	arr[idx] = root;
-	action(root, NULL);	
+	if (action)
+		action(root, NULL);	
 	idx++;
 	printf("\n");	
 	while ( TO_RIGHT(curr) || (TO_LEFT(curr)) || !STACK_IS_NULL(phead))
@@ -202,8 +260,8 @@ void walk_tree_preorder(branch_tree *root,
 		if (curr)
 		{
 			arr[idx++] = curr;
-
-			action( curr, NULL);	
+			if (action)
+				action( curr, NULL);	
 		}
 	}	
     #if 0 
@@ -224,15 +282,11 @@ void walk_tree_preorder(branch_tree *root,
 }
 
 
-
-
-
-
-
 void walk_tree_postorder(branch_tree *root, 
 						branch_tree **arr,
 						unsigned int depth, 
-						void (*action)(branch_tree *))
+						void (*action)(branch_tree *, void *arg),
+						void *arg)
 {
 	int idx = 0;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
@@ -242,8 +296,6 @@ void walk_tree_postorder(branch_tree *root,
 	list_head *phead = malloc(sizeof(list_head));
 	INIT_HEAD(phead);
 
-	//tree_node *arr[depth]; // 100 - num of nodes in tree
-
 	branch_tree *node = root;
 	branch_tree *parent = root;
 	branch_tree *pnode = NULL;
@@ -252,9 +304,17 @@ void walk_tree_postorder(branch_tree *root,
 	fill_stack(&head, &node);
 	while (curr != root)
 	{
+	
 		pop_node_from_ll(head, &list_node);	
 		curr = list_node->node;  
-		arr[idx++] = curr;
+
+		printf("delete: %d %d\n", idx, (int)GET_NODE_VAL(curr));
+		if (action)
+			action(curr, NULL);	
+
+		//arr[idx] = curr;
+		idx++;
+
 		/*
 		 *	Get parent node (without destroy stack)
 		*/
@@ -289,20 +349,34 @@ void walk_tree_postorder(branch_tree *root,
 		}
 		
 	}
+
+    #if 0
 	for (int i = 0; i < idx ; i++)
 	{
-
-   #if 0  
 		if (arr[i])
 		{
 			val = (int)GET_NODE_VAL(arr[i]);
 			printf(" %d ", val);
 		//	PRINT_ARRAY_TREE(arr[i]);
 		 }
-	#endif
 	}
 	printf("\n");
+	#endif
 
+	list_head *ll_node = NULL;
+	for_each_entry( ll_node, ll_node_A, head )
+	{
+		remove_last( head, NULL );
+		
+	}
+	for_each_entry( ll_node, ll_node_A, phead )
+	{
+		remove_last( phead, NULL );
+	}
+
+	free(head);
+	free(phead);
+	free(list_node);
 	return;
 }
 
@@ -374,14 +448,14 @@ void walk_tree_inorder(branch_tree *root,
 #define STR_BUFF 200
 
 
-void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
+void print_tree(branch_tree *root,  unsigned int depth)
 {
 	int i = 0, x_offset = 0, val = 0;
 
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
 	list_head *phead = calloc(1, sizeof(list_head));
 	INIT_HEAD(phead);
-
+	branch_tree *arr[depth];
 	char val_str[100]= "\0";
 	char offset[100]="\0";
 
@@ -389,17 +463,18 @@ void print_tree(branch_tree *root, branch_tree **arr, unsigned int depth)
  	char *new_prefix = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
 	char *one_branch;
 
-	memset(dfl_prefix, '\0', strlen(dfl_prefix));
-	memset(new_prefix, '\0', strlen(dfl_prefix));
+	memset(dfl_prefix, 0,MAX_PREFIX_SIZE(depth)/2);
+	memset(new_prefix, 0,MAX_PREFIX_SIZE(depth)/2);
 
-	branch_tree *parent = root, *curr = root; 
-
-	walk_tree_preorder(root, arr, depth, print_item, NULL);
+	branch_tree *parent = root;
+	branch_tree *curr = root; 
 
 	val = (int)GET_NODE_VAL(root);
 	printf("%d .\n", val);
 	i = 0;
 	curr = root;
+
+	walk_tree_preorder(root, arr, depth, print_tree_node, NULL);
 
 	while( curr->left || curr->right  || (!STACK_IS_NULL(phead)) )
 	{	
