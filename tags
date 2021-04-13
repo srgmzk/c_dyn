@@ -28,7 +28,7 @@ PRINT_OFFSET	tree.h	101;"	d
 PRINT_OUT_STACK	tree.h	91;"	d
 RIGHT_TRAV	tree.h	50;"	d
 STACK_IS_NULL	tree.h	97;"	d
-STR_BUFF	tree.c	434;"	d	file:
+STR_BUFF	tree.c	397;"	d	file:
 TO_LEFT	tree.h	26;"	d
 TO_RIGHT	tree.h	27;"	d
 TREE_H	tree.h	20;"	d
@@ -40,6 +40,7 @@ branch_tree	tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
 container_of	ll.h	33;"	d
 delete_tree	tree.c	/^void delete_tree(branch_tree *root, unsigned depth)$/;"	f
 delete_tree_node	tree.c	/^void delete_tree_node(branch_tree *node, void *n)$/;"	f
+dfl_prefix	tree.h	/^ 	char *dfl_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
 fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f
 for_each_entry	ll.h	39;"	d
 init_node_tree	tree.c	/^void init_node_tree(branch_tree *root, void *val)$/;"	f
@@ -49,6 +50,7 @@ left	tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct
 list_entry	ll.h	36;"	d
 list_head	ll.h	/^typedef struct list_head$/;"	s
 list_head	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
+list_node	tree.h	/^	ll_node_tree *list_node;$/;"	m	struct:ptree_struct
 list_ptr	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
 ll_int	ll.h	/^	list_head ll_int;$/;"	m	struct:ll_node_A
 ll_node_A	ll.h	/^typedef struct ll_node_A$/;"	s
@@ -60,22 +62,29 @@ main	hash.c	/^int main()$/;"	f
 main	main.c	/^int main()$/;"	f
 main	strln.c	/^int main()$/;"	f
 new_int_node	ll.c	/^ll_node_A *new_int_node(int val)$/;"	f
+new_prefix	tree.h	/^ 	char *new_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
 next	ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
 node	tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree
 offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree
 offsetof	ll.h	30;"	d
+parent	tree.h	/^	branch_tree *parent;$/;"	m	struct:ptree_struct
+phead	tree.h	/^	list_head *phead;$/;"	m	struct:ptree_struct
 pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
 pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
 prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
 print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f
+print_print_node	tree.c	/^void print_print_node(branch_tree *curr, void *arg)$/;"	f
 print_tree	tree.c	/^void print_tree(branch_tree *root,  unsigned int depth)$/;"	f
 print_tree_node	tree.c	/^void print_tree_node(branch_tree *branch, void *n)$/;"	f
 ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
 ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
+ptree_struct	tree.h	/^typedef struct ptree_struct$/;"	s
+ptree_struct	tree.h	/^} ptree_struct;$/;"	t	typeref:struct:ptree_struct
 push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f
 remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
 remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
 right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
+root	tree.h	/^	branch_tree *root;$/;"	m	struct:ptree_struct
 tree_node	tree.h	/^typedef struct tree_node$/;"	s
 tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
 val	ll.h	/^	int val;$/;"	m	struct:ll_node_A
@@ -83,3 +92,4 @@ val	tree.h	/^	int val;$/;"	m	struct:tree_node
 walk_tree_inorder	tree.c	/^void walk_tree_inorder(branch_tree *root, $/;"	f
 walk_tree_postorder	tree.c	/^void walk_tree_postorder(branch_tree *root, $/;"	f
 walk_tree_preorder	tree.c	/^void walk_tree_preorder(branch_tree *root, $/;"	f
+x_offset	tree.h	/^	unsigned int x_offset;$/;"	m	struct:ptree_struct

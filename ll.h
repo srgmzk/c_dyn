@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LIST_SIZE 50000 
+#define MAX_LIST_SIZE 5000000 
 
 #define offsetof(type, member)\
 	(size_t)((char *)&((type *)(0))->member - (char *)0)

@@ -37,8 +37,8 @@ int main()
 
 	list_head *new_item = NULL;
 
-	//printf("head_int: %p\n", head_int);
 	int i;
+	#if 0
 	for (i = 0; i < depth; i++)
 	{
 		a_item = malloc(sizeof(ll_node_A));
@@ -49,9 +49,9 @@ int main()
 		
 	}
 
-//	print_int_node( head_int );	
+	
 
-	#if 0
+
 	for (i=10; i<20; i++)
 	{
 		a_item = malloc(sizeof(ll_node_A));
@@ -59,46 +59,50 @@ int main()
 		new_item = &(a_item->ll_int);
 		insert_node(head_int, new_item);
 	}
-	#endif
 
-	/*
-		BUILD TREE
-	*/
-	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
-	init_root_tree(&root, (void *)&tmp_item.val);
+	print_int_node( head_int );	
 
-	count = 1;
-
-	#if 1 
-	for_each_entry( ll_node, ll_node_A, head_int->next )
-	{
-		tmp_item = (*list_entry( *ll_node, ll_node_A, ll_int ));
-		init_node_tree(root, (void *)&tmp_item.val);
-		count++;
-	}
-
-
-//	printf("Remove list:\n");
+	printf("Remove list:\n");
 	count = 0;	
 	for_each_entry( ll_node, ll_node_A, head_int)
 		count++;
-//	printf("count: %d\n", count);
+	printf("count: %d\n", count);
+
 	for (i = 0; i < count; i++)
 	{
 		//res = remove_first( head_int, &tmp_item );
 		res = remove_last( head_int, &tmp_item );
 		//printf("removed: %d \n", tmp_item.val);
 	}
-//	printf("**************************\n");
+	printf("**************************\n");
 	#endif
 
-	//walk_tree_preorder(root, arr, depth, print_item, NULL);	
-	//walk_tree_postorder(root, arr, depth, print_tree_node, NULL);	
+	/*
+		BUILD TREE
+	*/
+	unsigned int A = (rand() % depth);
+	init_root_tree(&root, (void *)(&A));
+	for (i = 1; i < depth; i++)
+	{
+		A = (rand() % depth);
+		init_node_tree(root, (void *)(&A));
+	}
 
+	#if 0
+	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
+	init_root_tree(&root, (void *)&tmp_item.val);
+
+
+	for_each_entry( ll_node, ll_node_A, head_int->next )
+	{
+
+		tmp_item = (*list_entry( *ll_node, ll_node_A, ll_int ));
+		init_node_tree(root, (void *)&tmp_item.val);
+		count++;
+	}
+	#endif
 	print_tree(root, depth);
 	delete_tree(root, depth);
-
-
 
 	free(head_int);
 

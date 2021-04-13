@@ -128,18 +128,31 @@ typedef struct ll_node_tree
 	list_head ll_tree;
 } ll_node_tree;
 
+typedef struct ptree_struct
+{
+	branch_tree *root;
+	branch_tree *parent;
+	ll_node_tree *list_node;
+	list_head *phead;
+ 	char *dfl_prefix;// = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
+ 	char *new_prefix;// = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
+	unsigned int x_offset;
+} ptree_struct;
 
 void init_root_tree(branch_tree **root, void *val);
 void init_node_tree(branch_tree *root, void *val);
 
 int add_node_tree(branch_tree *root, branch_tree *new_nodea);
-void walk_tree_inorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *));
-void walk_tree_postorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
-void walk_tree_preorder(branch_tree *root, branch_tree **arr, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
+void walk_tree_inorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *));
+void walk_tree_postorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
+void walk_tree_preorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
 
 void print_tree(branch_tree *root, unsigned int depth);
+void print_tree_(branch_tree *root,  unsigned int depth);
 void delete_tree(branch_tree *root, unsigned depth);
 void print_parent(tree_node *parent);
 void print_tree_node(branch_tree *root,  void *n );
 void delete_tree_node(branch_tree *root, void *n );
+void print_print_node(branch_tree *root,  void *n );
+
 #endif
