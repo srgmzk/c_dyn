@@ -28,7 +28,7 @@ PRINT_OFFSET	tree.h	101;"	d
 PRINT_OUT_STACK	tree.h	91;"	d
 RIGHT_TRAV	tree.h	50;"	d
 STACK_IS_NULL	tree.h	97;"	d
-STR_BUFF	tree.c	448;"	d	file:
+STR_BUFF	tree.c	434;"	d	file:
 TO_LEFT	tree.h	26;"	d
 TO_RIGHT	tree.h	27;"	d
 TREE_H	tree.h	20;"	d

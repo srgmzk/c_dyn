@@ -89,7 +89,7 @@ void init_node_tree(branch_tree *root, void *val)
 	//printf("ADD ROOT: %d\n", MyTree->val);
 	if (add_node_tree( root, branch ))
 	{
-		printf("Double detected. Drop val %d\n", Tree->val);
+//		printf("Double detected. Drop val %d\n", Tree->val);
 		free(Tree);  
 	}
 
@@ -188,7 +188,6 @@ void fill_stack(list_head **head, branch_tree **node )
 /*
 	Callbacks routines
 */
-
 void print_tree_node(branch_tree *branch, void *n)
 {
 	PRINT_ARRAY_TREE(branch);	
@@ -211,12 +210,6 @@ void delete_tree(branch_tree *root, unsigned depth)
 }
 
 
-
-
-
-
-
-
 void walk_tree_preorder(branch_tree *root, 
 						branch_tree **arr,
 						unsigned int depth, 
@@ -237,7 +230,7 @@ void walk_tree_preorder(branch_tree *root,
 	if (action)
 		action(root, NULL);	
 	idx++;
-	printf("\n");	
+
 	while ( TO_RIGHT(curr) || (TO_LEFT(curr)) || !STACK_IS_NULL(phead))
 	{
 		if ( HAVE_TWINS(curr) )
@@ -308,7 +301,6 @@ void walk_tree_postorder(branch_tree *root,
 		pop_node_from_ll(head, &list_node);	
 		curr = list_node->node;  
 
-		printf("delete: %d %d\n", idx, (int)GET_NODE_VAL(curr));
 		if (action)
 			action(curr, NULL);	
 
@@ -363,16 +355,10 @@ void walk_tree_postorder(branch_tree *root,
 	printf("\n");
 	#endif
 
-	list_head *ll_node = NULL;
-	for_each_entry( ll_node, ll_node_A, head )
-	{
-		remove_last( head, NULL );
-		
-	}
-	for_each_entry( ll_node, ll_node_A, phead )
-	{
-		remove_last( phead, NULL );
-	}
+	while (head->next) 
+		pop_node_from_ll(head, NULL);
+	while (phead->next) 
+		pop_node_from_ll(phead, NULL);
 
 	free(head);
 	free(phead);
@@ -474,7 +460,8 @@ void print_tree(branch_tree *root,  unsigned int depth)
 	i = 0;
 	curr = root;
 
-	walk_tree_preorder(root, arr, depth, print_tree_node, NULL);
+//	walk_tree_preorder(root, arr, depth, print_tree_node, NULL);
+	walk_tree_preorder(root, arr, depth, NULL, NULL);
 
 	while( curr->left || curr->right  || (!STACK_IS_NULL(phead)) )
 	{	

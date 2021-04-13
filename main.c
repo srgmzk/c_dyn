@@ -49,7 +49,7 @@ int main()
 		
 	}
 
-	print_int_node( head_int );	
+//	print_int_node( head_int );	
 
 	#if 0
 	for (i=10; i<20; i++)
@@ -78,18 +78,18 @@ int main()
 	}
 
 
-	printf("Remove list:\n");
+//	printf("Remove list:\n");
 	count = 0;	
 	for_each_entry( ll_node, ll_node_A, head_int)
 		count++;
-	printf("count: %d\n", count);
+//	printf("count: %d\n", count);
 	for (i = 0; i < count; i++)
 	{
 		//res = remove_first( head_int, &tmp_item );
 		res = remove_last( head_int, &tmp_item );
 		//printf("removed: %d \n", tmp_item.val);
 	}
-	printf("**************************\n");
+//	printf("**************************\n");
 	#endif
 
 	//walk_tree_preorder(root, arr, depth, print_item, NULL);	
