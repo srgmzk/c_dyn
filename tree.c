@@ -18,6 +18,7 @@
 
 #include "tree.h"
 #include <assert.h>
+#include <stdbool.h>
 
 #define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
@@ -114,8 +115,6 @@ void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )
 	ll_node_tree *ll_node = malloc(sizeof(ll_node_tree));
 	ll_node->node = *node;
 	ll_node->offset = offset;
-
-//	PRINT_IN_STACK(node);
 	add_node( head, &ll_node->ll_tree );
 }
 
@@ -195,7 +194,8 @@ void print_tree_node(branch_tree *branch, void *n)
 
 void delete_tree_node(branch_tree *node, void *n)
 {
-	tree_node *item = list_entry(*node, tree_node, branch );
+	tree_node *item = list_entry(*node, tree_node, branch);
+	
 	free(item);
 }
 
@@ -251,6 +251,9 @@ void walk_tree_preorder(branch_tree *root,
 		}
 	}	
 
+	while (phead->next) 
+		pop_node_from_ll(phead, NULL);
+
  	free(list_node);
 	free(phead);
 }
@@ -262,6 +265,7 @@ void walk_tree_postorder(branch_tree *root,
 						void *arg)
 {
 	int idx = 0;
+	bool is_left = false, have_twins = false;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
 
 	list_head *head = malloc(sizeof(list_head));
@@ -275,16 +279,11 @@ void walk_tree_postorder(branch_tree *root,
 	branch_tree *curr = NULL;
 
 	fill_stack(&head, &node);
+
 	while (curr != root)
 	{
-	
 		pop_node_from_ll(head, &list_node);	
 		curr = list_node->node;  
-
-		if (action)
-			action(curr, NULL);	
-
-		idx++;
 
 		/*
 		 *	Get parent node (without destroy stack)
@@ -293,18 +292,31 @@ void walk_tree_postorder(branch_tree *root,
 		pop_parent_from_ll(head, &list_node);	
 		parent = list_node->node;
 
+		if ( IS_LEFT(curr, parent) && curr != root )	
+			is_left = true;
+		else is_left = false;
+
+		if ( HAVE_TWINS(parent) && parent != root )
+			have_twins = true;
+		else have_twins = false;
+
+		if (action)
+			action(curr, NULL);	
+
+		idx++;
+
+
 		/*
 		 * Check parent node have another branch
 		*/			
-
-		if ( IS_LEFT(curr, parent) && curr != root )	
+		if (is_left)
 		{
 			node = TO_RIGHT(parent);
 			fill_stack(&head, &node);
 			curr = node;
 		}
 
-		if ( HAVE_TWINS(parent) && parent != root )
+		if (have_twins)
 		{ 
 			if ( parent == pnode )
 			{
@@ -409,13 +421,14 @@ void print_tree(branch_tree *root,  unsigned int depth)
  	char *dfl_prefix = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
  	char *new_prefix = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
 
-	memset(dfl_prefix, 0,MAX_PREFIX_SIZE(depth)/2);
-	memset(new_prefix, 0,MAX_PREFIX_SIZE(depth)/2);
+	memset(dfl_prefix, 0, MAX_PREFIX_SIZE(depth)/2);
+	memset(new_prefix, 0, MAX_PREFIX_SIZE(depth)/2);
 
 	int	val = (int)GET_NODE_VAL(root);
 	printf("%d .\n", val);
 
 	ptree.x_offset = 0;
+	ptree.depth = depth;
 	ptree.root = root;
 	ptree.parent = root;
 	ptree.list_node = list_node;
@@ -425,6 +438,9 @@ void print_tree(branch_tree *root,  unsigned int depth)
 
 	walk_tree_preorder(root, depth, print_print_node, (void *)&ptree );
 
+	while (phead->next) 
+		pop_node_from_ll(phead, NULL);
+
 	free(list_node); 
 	free(phead);
  	free(dfl_prefix);
@@ -433,12 +449,15 @@ void print_tree(branch_tree *root,  unsigned int depth)
 
 void print_print_node(branch_tree *curr, void *arg)
 {
-		int val;
-		char val_str[100]= "\0";
-		char offset[100]="\0";
-		char *one_branch;
+		unsigned int val = 0, len = 0;
+
+
 
 		ptree_struct *ptree = (ptree_struct *)arg;
+
+		char val_str[100]= "\0";
+		char offset[1000] = "\0";
+		char *one_branch = NULL;
 
 	 	ll_node_tree *list_node = ptree->list_node;
 		list_head *phead = ptree->phead;
@@ -481,8 +500,8 @@ void print_print_node(branch_tree *curr, void *arg)
 				val = (int)GET_NODE_VAL(curr);
 				sprintf(val_str, "[%d]R", val );
 
-				int len = 2 *(2 * strlen(offset) + strlen(dfl_prefix) + strlen(val_str));
-				one_branch = malloc(sizeof(char)*len); 
+				len = 2 * (2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
+				one_branch = malloc(sizeof(char)*len + 1); 
 
 				PRINT_LEAF(dfl_prefix, one_branch, "", val_str); 
 				
@@ -501,9 +520,9 @@ void print_print_node(branch_tree *curr, void *arg)
 			val = (int)GET_NODE_VAL(curr->left);
 			sprintf(val_str, "[%d]L", val );
 
-			int len = 2*(2 * strlen(offset) + strlen(dfl_prefix) + strlen(val_str));
+			len = 2*(2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
 
-			one_branch = malloc(len * sizeof(char)); 
+			one_branch = malloc(len * sizeof(char) + 1); 
 			PRINT_LEAF(dfl_prefix, one_branch, offset, val_str); 
 			printf("%s\n", one_branch);
 			sprintf(one_branch, "%s", dfl_prefix );
@@ -517,8 +536,8 @@ void print_print_node(branch_tree *curr, void *arg)
 			if ( IS_LEAF(curr) )
 			{
 
-				int len = 2 * ( 2 * strlen(offset) + strlen(dfl_prefix) + strlen("[NN]L"));
-				one_branch = malloc(len * sizeof(char)); 
+				len = 2 * ( 2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen("[NN]L" + 1));
+				one_branch = malloc(len * sizeof(char) + 1); 
 				PRINT_LEAF(dfl_prefix, one_branch, offset, "[NN]L" ); 
 				printf("%s\n", one_branch);
 				sprintf(one_branch, "%s", dfl_prefix );
@@ -535,8 +554,8 @@ void print_print_node(branch_tree *curr, void *arg)
 				val = (int)GET_NODE_VAL(curr->right);
 				sprintf(val_str, "[%d]R", val );
 
-				int len = 2 * ( 2 * strlen(offset) + strlen(dfl_prefix) + strlen(val_str));
-				one_branch = malloc(len * sizeof(char)); 
+				len = 2 * ( 2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
+				one_branch = malloc(len * sizeof(char) + 1); 
 				PRINT_LEAF(dfl_prefix, one_branch, offset, val_str); 
 				printf("%s\n",  one_branch);
 				free(one_branch);
@@ -548,8 +567,8 @@ void print_print_node(branch_tree *curr, void *arg)
 			if ( IS_LEAF(curr) )
 			{
 
-				int len = 2 * ( 2 * strlen(offset) + strlen(dfl_prefix) + strlen("[NN]R"));
-				one_branch = malloc(len * sizeof(char)); 
+				int len = 2 * ( 2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen("[NN]R") + 1);
+				one_branch = malloc(len * sizeof(char) + 1); 
 				PRINT_LEAF(dfl_prefix, one_branch, offset, "[NN]R"); 
 				printf("%s\n",  one_branch);
 				free(one_branch);
@@ -561,7 +580,7 @@ void print_print_node(branch_tree *curr, void *arg)
 		if (HAVE_TWINS(curr))
 		{
 			sprintf(new_prefix, "%s%s%s", dfl_prefix, offset, "|");
-			val = (curr == root) ? 0 : strlen(new_prefix)-1;
+			val = (curr == root) ? 0 : strlen(new_prefix) - 1;
 			push_node_to_ll(phead, &curr, val);
 			x_offset = 3;
 		}

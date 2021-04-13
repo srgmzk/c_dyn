@@ -2,7 +2,7 @@
 # =======================
 # $@ - Full name of target file (.o, .exe)
 # $* - Name of target file without suffix ( ex: prog.c -> prog )
-# $< - Name of source file ( ex: for prog.o, source file prog.c, => $< include prog.c
+# $< - Name of source file ( ex: for prog.o, source file prog.c, => $< include prog c
 #
 # Makefile rules
 # ==============
@@ -16,7 +16,8 @@
 TARGET: ll.o libll.a tree.o libtree.a main.o main 
 
 CC=gcc
-CFLAGS=-Wall -g -pg 
+#CFLAGS=-Wall -g -fno-stack-protector 
+CFLAGS=-Wall -g
 LDLIBS=
 
 main: main.o

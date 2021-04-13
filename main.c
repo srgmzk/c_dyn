@@ -82,7 +82,8 @@ int main()
 	*/
 	unsigned int A = (rand() % depth);
 	init_root_tree(&root, (void *)(&A));
-	for (i = 1; i < depth; i++)
+
+	for (i = 0; i < depth; i++)
 	{
 		A = (rand() % depth);
 		init_node_tree(root, (void *)(&A));

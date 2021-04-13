@@ -1,95 +1,110 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
-!_TAG_PROGRAM_NAME	Exuberant Ctags	//
-!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/mos/zoo/c_dyn/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
 CC	Makefile	/^CC=gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-Wall -g -pg $/;"	m
-GET_NODE_OFFSET	tree.h	63;"	d
-GET_NODE_VAL	tree.h	59;"	d
-HAVE_TWINS	tree.h	31;"	d
-INIT_HEAD	ll.h	42;"	d
-IS_LEAF	tree.h	29;"	d
-IS_LEFT	tree.h	39;"	d
-IS_NODE	tree.h	33;"	d
-IS_PARENT	tree.h	82;"	d
-IS_RIGHT	tree.h	36;"	d
+CFLAGS	Makefile	/^CFLAGS=-Wall -g$/;"	m
+GET_NODE_OFFSET	tree.h	/^#define GET_NODE_OFFSET(/;"	d
+GET_NODE_VAL	tree.h	/^#define GET_NODE_VAL(/;"	d
+HAVE_TWINS	tree.h	/^#define HAVE_TWINS(/;"	d
+INIT_HEAD	ll.h	/^#define INIT_HEAD(/;"	d
+IS_LEAF	tree.h	/^#define IS_LEAF(/;"	d
+IS_LEFT	tree.h	/^#define IS_LEFT(/;"	d
+IS_NODE	tree.h	/^#define IS_NODE(/;"	d
+IS_PARENT	tree.h	/^#define IS_PARENT(/;"	d
+IS_RIGHT	tree.h	/^#define IS_RIGHT(/;"	d
 LDLIBS	Makefile	/^LDLIBS=$/;"	m
-LEFT_TRAV	tree.h	42;"	d
-LL_H	ll.h	21;"	d
-MAX_LIST_SIZE	ll.h	28;"	d
-MAX_PREFIX_SIZE	tree.c	22;"	d	file:
-NODE_VAL	tree.h	67;"	d
-PRINT_ARRAY_TREE	tree.h	75;"	d
-PRINT_IN_STACK	tree.h	85;"	d
-PRINT_LEAF	tree.h	106;"	d
-PRINT_OFFSET	tree.h	101;"	d
-PRINT_OUT_STACK	tree.h	91;"	d
-RIGHT_TRAV	tree.h	50;"	d
-STACK_IS_NULL	tree.h	97;"	d
-STR_BUFF	tree.c	397;"	d	file:
-TO_LEFT	tree.h	26;"	d
-TO_RIGHT	tree.h	27;"	d
-TREE_H	tree.h	20;"	d
-add_node	ll.h	60;"	d
-add_node_tree	tree.c	/^int add_node_tree(branch_tree *root, branch_tree *new)$/;"	f
-branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node
+LEFT_TRAV	tree.h	/^#define LEFT_TRAV(/;"	d
+LL_H	ll.h	/^#define LL_H$/;"	d
+MAX_LIST_SIZE	ll.h	/^#define MAX_LIST_SIZE /;"	d
+MAX_PREFIX_SIZE	tree.c	/^#define MAX_PREFIX_SIZE(/;"	d	file:
+NODE_VAL	tree.h	/^#define NODE_VAL(/;"	d
+PRINT_ARRAY_TREE	tree.h	/^#define PRINT_ARRAY_TREE(/;"	d
+PRINT_IN_STACK	tree.h	/^#define PRINT_IN_STACK(/;"	d
+PRINT_LEAF	tree.h	/^#define PRINT_LEAF(/;"	d
+PRINT_OFFSET	tree.h	/^#define PRINT_OFFSET(/;"	d
+PRINT_OUT_STACK	tree.h	/^#define PRINT_OUT_STACK(/;"	d
+RIGHT_TRAV	tree.h	/^#define RIGHT_TRAV(/;"	d
+STACK_IS_NULL	tree.h	/^#define STACK_IS_NULL(/;"	d
+STR_BUFF	tree.c	/^#define STR_BUFF /;"	d	file:
+TARGET	Makefile	/^TARGET: ll.o libll.a tree.o libtree.a main.o main $/;"	t
+TO_LEFT	tree.h	/^#define TO_LEFT(/;"	d
+TO_RIGHT	tree.h	/^#define TO_RIGHT(/;"	d
+TREE_H	tree.h	/^#define TREE_H$/;"	d
+add_node	ll.h	/^#define add_node(/;"	d
+add_node_tree	tree.c	/^int add_node_tree(branch_tree *root, branch_tree *new)$/;"	f	typeref:typename:int
+branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node	typeref:typename:branch_tree
 branch_tree	tree.h	/^typedef struct branch_tree$/;"	s
 branch_tree	tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
-container_of	ll.h	33;"	d
-delete_tree	tree.c	/^void delete_tree(branch_tree *root, unsigned depth)$/;"	f
-delete_tree_node	tree.c	/^void delete_tree_node(branch_tree *node, void *n)$/;"	f
-dfl_prefix	tree.h	/^ 	char *dfl_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
-fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f
-for_each_entry	ll.h	39;"	d
-init_node_tree	tree.c	/^void init_node_tree(branch_tree *root, void *val)$/;"	f
-init_root_tree	tree.c	/^void init_root_tree(branch_tree **root, void *val)$/;"	f
-insert_node	ll.c	/^int insert_node(list_head *head, list_head *new_node)$/;"	f
-left	tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
-list_entry	ll.h	36;"	d
+c_dyn	README.md	/^# c_dyn$/;"	c
+clean	Makefile	/^clean:$/;"	t
+container_of	ll.h	/^#define container_of(/;"	d
+delete_tree	tree.c	/^void delete_tree(branch_tree *root, unsigned depth)$/;"	f	typeref:typename:void
+delete_tree_node	tree.c	/^void delete_tree_node(branch_tree *node, void *n)$/;"	f	typeref:typename:void
+depth	tree.h	/^	unsigned int depth;$/;"	m	struct:ptree_struct	typeref:typename:unsigned int
+dfl_prefix	tree.h	/^ 	char *dfl_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct	typeref:typename:char *
+fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f	typeref:typename:void
+for_each_entry	ll.h	/^#define for_each_entry(/;"	d
+init_node_tree	tree.c	/^void init_node_tree(branch_tree *root, void *val)$/;"	f	typeref:typename:void
+init_root_tree	tree.c	/^void init_root_tree(branch_tree **root, void *val)$/;"	f	typeref:typename:void
+insert_node	ll.c	/^int insert_node(list_head *head, list_head *new_node)$/;"	f	typeref:typename:int
+left	tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct:branch_tree *
+libll.a	Makefile	/^libll.a: ll.o$/;"	t
+libtree.a	Makefile	/^libtree.a: tree.o$/;"	t
+list_entry	ll.h	/^#define list_entry(/;"	d
 list_head	ll.h	/^typedef struct list_head$/;"	s
 list_head	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
-list_node	tree.h	/^	ll_node_tree *list_node;$/;"	m	struct:ptree_struct
-list_ptr	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
-ll_int	ll.h	/^	list_head ll_int;$/;"	m	struct:ll_node_A
+list_node	tree.h	/^	ll_node_tree *list_node;$/;"	m	struct:ptree_struct	typeref:typename:ll_node_tree *
+list_ptr	ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head *
+ll.o	Makefile	/^ll.o: ll.c$/;"	t
+ll_int	ll.h	/^	list_head ll_int;$/;"	m	struct:ll_node_A	typeref:typename:list_head
 ll_node_A	ll.h	/^typedef struct ll_node_A$/;"	s
 ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
 ll_node_tree	tree.h	/^typedef struct ll_node_tree$/;"	s
 ll_node_tree	tree.h	/^} ll_node_tree;$/;"	t	typeref:struct:ll_node_tree
-ll_tree	tree.h	/^	list_head ll_tree;$/;"	m	struct:ll_node_tree
-main	hash.c	/^int main()$/;"	f
-main	main.c	/^int main()$/;"	f
-main	strln.c	/^int main()$/;"	f
-new_int_node	ll.c	/^ll_node_A *new_int_node(int val)$/;"	f
-new_prefix	tree.h	/^ 	char *new_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
-next	ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
-node	tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree
-offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree
-offsetof	ll.h	30;"	d
-parent	tree.h	/^	branch_tree *parent;$/;"	m	struct:ptree_struct
-phead	tree.h	/^	list_head *phead;$/;"	m	struct:ptree_struct
-pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
-pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
-prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
-print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f
-print_print_node	tree.c	/^void print_print_node(branch_tree *curr, void *arg)$/;"	f
-print_tree	tree.c	/^void print_tree(branch_tree *root,  unsigned int depth)$/;"	f
-print_tree_node	tree.c	/^void print_tree_node(branch_tree *branch, void *n)$/;"	f
-ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
-ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
+ll_tree	tree.h	/^	list_head ll_tree;$/;"	m	struct:ll_node_tree	typeref:typename:list_head
+main	Makefile	/^main: main.o$/;"	t
+main	hash.c	/^int main()$/;"	f	typeref:typename:int
+main	main.c	/^int main()$/;"	f	typeref:typename:int
+main	strln.c	/^int main()$/;"	f	typeref:typename:int
+main.o	Makefile	/^main.o: main.c$/;"	t
+new_int_node	ll.c	/^ll_node_A *new_int_node(int val)$/;"	f	typeref:typename:ll_node_A *
+new_prefix	tree.h	/^ 	char *new_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct	typeref:typename:char *
+next	ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head *
+node	tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree	typeref:typename:branch_tree *
+offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree	typeref:typename:unsigned int
+offsetof	ll.h	/^#define offsetof(/;"	d
+parent	tree.h	/^	branch_tree *parent;$/;"	m	struct:ptree_struct	typeref:typename:branch_tree *
+phead	tree.h	/^	list_head *phead;$/;"	m	struct:ptree_struct	typeref:typename:list_head *
+pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	typeref:typename:int
+pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	typeref:typename:int
+prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head *
+print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f	typeref:typename:void
+print_print_node	tree.c	/^void print_print_node(branch_tree *curr, void *arg)$/;"	f	typeref:typename:void
+print_tree	tree.c	/^void print_tree(branch_tree *root,  unsigned int depth)$/;"	f	typeref:typename:void
+print_tree_node	tree.c	/^void print_tree_node(branch_tree *branch, void *n)$/;"	f	typeref:typename:void
+ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A *
+ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node *
 ptree_struct	tree.h	/^typedef struct ptree_struct$/;"	s
 ptree_struct	tree.h	/^} ptree_struct;$/;"	t	typeref:struct:ptree_struct
-push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f
-remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
-remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
-right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
-root	tree.h	/^	branch_tree *root;$/;"	m	struct:ptree_struct
+push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f	typeref:typename:void
+remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f	typeref:typename:int
+remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f	typeref:typename:int
+right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree *
+root	tree.h	/^	branch_tree *root;$/;"	m	struct:ptree_struct	typeref:typename:branch_tree *
+tree.o	Makefile	/^tree.o: tree.c$/;"	t
 tree_node	tree.h	/^typedef struct tree_node$/;"	s
 tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
-val	ll.h	/^	int val;$/;"	m	struct:ll_node_A
-val	tree.h	/^	int val;$/;"	m	struct:tree_node
-walk_tree_inorder	tree.c	/^void walk_tree_inorder(branch_tree *root, $/;"	f
-walk_tree_postorder	tree.c	/^void walk_tree_postorder(branch_tree *root, $/;"	f
-walk_tree_preorder	tree.c	/^void walk_tree_preorder(branch_tree *root, $/;"	f
-x_offset	tree.h	/^	unsigned int x_offset;$/;"	m	struct:ptree_struct
+val	ll.h	/^	int val;$/;"	m	struct:ll_node_A	typeref:typename:int
+val	tree.h	/^	int val;$/;"	m	struct:tree_node	typeref:typename:int
+walk_tree_inorder	tree.c	/^void walk_tree_inorder(branch_tree *root, $/;"	f	typeref:typename:void
+walk_tree_postorder	tree.c	/^void walk_tree_postorder(branch_tree *root, $/;"	f	typeref:typename:void
+walk_tree_preorder	tree.c	/^void walk_tree_preorder(branch_tree *root, $/;"	f	typeref:typename:void
+x_offset	tree.h	/^	unsigned int x_offset;$/;"	m	struct:ptree_struct	typeref:typename:unsigned int

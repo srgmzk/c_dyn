@@ -75,9 +75,9 @@
 #define PRINT_ARRAY_TREE(_node_)({\
 			char tmpstr[100];\
 		    printf(" left: %s (%p) \n", NODE_VAL((_node_)->left, tmpstr), ((_node_)->left));\
-			strncpy(tmpstr, "\0", strlen(tmpstr));\
+			strncpy(tmpstr, "\0", strlen(tmpstr)+1);\
 		    printf(" right: %s (%p) \n", NODE_VAL((_node_)->right, tmpstr),((_node_)->right));\
-			strncpy(tmpstr, "\0", strlen(tmpstr));})
+			strncpy(tmpstr, "\0", strlen(tmpstr)+1);})
 
 #define IS_PARENT(_child_, _parent_)\
 	((_parent_->left == _child_) || (_parent_->right == _child_))? 1:0
@@ -100,8 +100,10 @@
 
 #define PRINT_OFFSET(_off_,_str_)\
 	memset(offset, 0, strlen(offset));\
-	for (int i=0; i<(_off_); i++)\
-		((_str_)[i]) = ' ';
+	int _idx_ = 0;\
+	for (_idx_=0; _idx_<(_off_); _idx_++)\
+		((_str_)[_idx_]) = ' ';\
+	((_str_)[_idx_]) = '\0';
 
 #define PRINT_LEAF(_prefix_, _out_, _offset_, _str_)\
 	sprintf((_out_), "%s%s%s%s%s%s%s%s", (_prefix_), (_offset_), "|" , "\n", (_prefix_), (_offset_), "+--", (_str_))
@@ -137,6 +139,7 @@ typedef struct ptree_struct
  	char *dfl_prefix;// = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
  	char *new_prefix;// = malloc((MAX_PREFIX_SIZE(depth)/2) * sizeof(char));
 	unsigned int x_offset;
+	unsigned int depth;
 } ptree_struct;
 
 void init_root_tree(branch_tree **root, void *val);
