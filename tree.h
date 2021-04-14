@@ -65,19 +65,19 @@
 		_curr_node_->offset;})
 
 #define NODE_VAL(_node_, _buf_)({\
-		tree_node *_curr_node_ = list_entry( (*_node_), tree_node, branch );\
-		if (_node_){\
-		if (_curr_node_->val)\
-			sprintf((_buf_), "%d", (_curr_node_->val));\
-		else sprintf((_buf_), "%c", '-');}\
-        (_buf_);})
+	tree_node *_curr_node_ = list_entry( (*_node_), tree_node, branch );\
+	if (_node_){\
+	if (_curr_node_->val)\
+		sprintf((_buf_), "%d", (_curr_node_->val));\
+	else sprintf((_buf_), "%c", '-');}\
+    	(_buf_);})
 
-#define PRINT_ARRAY_TREE(_node_)({\
-			char tmpstr[100];\
-		    printf(" left: %s (%p) \n", NODE_VAL((_node_)->left, tmpstr), ((_node_)->left));\
-			strncpy(tmpstr, "\0", strlen(tmpstr)+1);\
-		    printf(" right: %s (%p) \n", NODE_VAL((_node_)->right, tmpstr),((_node_)->right));\
-			strncpy(tmpstr, "\0", strlen(tmpstr)+1);})
+#define PRINT_TNODE_DBG(_node_)({\
+	char tmpstr[100];\
+    printf(" left: %s (%p) \n", (((_node_)->left)?NODE_VAL((_node_)->left, tmpstr):"NaN"), ((_node_)->left));\
+	strncpy(tmpstr, "\0", strlen(tmpstr)+1);\
+    printf(" right: %s (%p) \n", (((_node_)->right)?NODE_VAL((_node_)->right, tmpstr):"NaN"),((_node_)->right));\
+	strncpy(tmpstr, "\0", strlen(tmpstr)+1);})
 
 #define IS_PARENT(_child_, _parent_)\
 	((_parent_->left == _child_) || (_parent_->right == _child_))? 1:0
@@ -142,20 +142,21 @@ typedef struct ptree_struct
 	unsigned int depth;
 } ptree_struct;
 
-void init_root_tree(branch_tree **root, void *val);
-void init_node_tree(branch_tree *root, void *val);
+void init_troot(branch_tree **root, void *val);
+void init_tnode(branch_tree *root, void *val);
+int add_tnode(branch_tree *root, branch_tree *new_nodea);
+void print_tree(branch_tree *root, unsigned int depth);
+void search_tnode(branch_tree *root, unsigned int key, branch_tree **node);
+void destroy_tree(branch_tree *root, unsigned depth);
 
-int add_node_tree(branch_tree *root, branch_tree *new_nodea);
 void walk_tree_inorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *));
 void walk_tree_postorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
 void walk_tree_preorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
 
-void print_tree(branch_tree *root, unsigned int depth);
-void print_tree_(branch_tree *root,  unsigned int depth);
-void delete_tree(branch_tree *root, unsigned depth);
-void print_parent(tree_node *parent);
-void print_tree_node(branch_tree *root,  void *n );
-void delete_tree_node(branch_tree *root, void *n );
-void print_print_node(branch_tree *root,  void *n );
+/* callbacks */
+void delete_tnode(branch_tree *root, void *);
+void destroy_tnode(branch_tree *root, void *);
+void print_tnode(branch_tree *root,  void *);
+
 
 #endif

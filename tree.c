@@ -23,13 +23,12 @@
 #define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
 
-int add_node_tree(branch_tree *root, branch_tree *new)
+int add_tnode(branch_tree *root, branch_tree *new)
 {
 	assert(root);
 
 	branch_tree *curr = root; 	
 	branch_tree *parent = root;
-
 	
 	tree_node *curr_node =	list_entry( *curr, tree_node, branch );
 	tree_node *new_node  =	list_entry( *new, tree_node, branch );
@@ -38,23 +37,13 @@ int add_node_tree(branch_tree *root, branch_tree *new)
 	{
 		if (curr_node->val > new_node->val)
 		{	 
-			/*
-			printf("curr val: %d, new val: %d ( -> to left)\n", curr_node->val, new_node->val);
-			printf("curr p: %p, new p: %p ( -> to left)\n", &curr_node->branch, &new_node->branch);
-			*/
 			parent = curr;
 			curr = TO_LEFT(curr);			
-	
 		}
 		else if (curr_node->val < new_node->val)
 		{
-//			printf("curr val: %d, new val: %d ( -> to right)\n", curr_node->val, new_node->val);
-//			printf("curr p: %p, new p: %p ( -> to right)\n", &curr_node->branch, &new_node->branch);
-
-			//printf("curr val: %d, new val: %d ( -> to right)\n", curr_node->val, new_node->val);
 			parent = curr;
 			curr = TO_RIGHT(curr);
-
 		}
 		else return 1;
 
@@ -79,7 +68,7 @@ int add_node_tree(branch_tree *root, branch_tree *new)
 	return 0;
 }
 
-void init_node_tree(branch_tree *root, void *val)
+void init_tnode(branch_tree *root, void *val)
 {
 	int *new_val = (int *)(val);
 	branch_tree *branch;
@@ -87,8 +76,7 @@ void init_node_tree(branch_tree *root, void *val)
 	branch = &(Tree->branch);
 	Tree->val = *new_val;	
 
-	//printf("ADD ROOT: %d\n", MyTree->val);
-	if (add_node_tree( root, branch ))
+	if (add_tnode( root, branch ))
 	{
 //		printf("Double detected. Drop val %d\n", Tree->val);
 		free(Tree);  
@@ -97,16 +85,13 @@ void init_node_tree(branch_tree *root, void *val)
 }
 
 
-void init_root_tree(branch_tree **root, void *val)
+void init_troot(branch_tree **root, void *val)
 {
 	int *new_val = (int *)(val);
 	tree_node *Tree = calloc(1, sizeof(tree_node));
 	*root = &(Tree->branch);
 	Tree->val = *new_val;	
-
-	//printf("ADD ROOT: %d\n", MyTree->val);
-
-	add_node_tree(*root, *root);
+	add_tnode(*root, *root);
 }
 
 
@@ -187,25 +172,16 @@ void fill_stack(list_head **head, branch_tree **node )
 /*
 	Callbacks routines
 */
-void print_tree_node(branch_tree *branch, void *n)
-{
-	PRINT_ARRAY_TREE(branch);	
-}	
-
-void delete_tree_node(branch_tree *node, void *n)
+void destroy_tnode(branch_tree *node, void *n)
 {
 	tree_node *item = list_entry(*node, tree_node, branch);
-	
 	free(item);
 }
 
-/*
 
-*/
-
-void delete_tree(branch_tree *root, unsigned depth)
+void destroy_tree(branch_tree *root, unsigned depth)
 {
-	walk_tree_postorder(root, depth, delete_tree_node, NULL);
+	walk_tree_postorder(root, depth, destroy_tnode, NULL);
 }
 
 
@@ -258,6 +234,21 @@ void walk_tree_preorder(branch_tree *root,
 	free(phead);
 }
 
+void search_tnode(branch_tree *root, unsigned key, branch_tree **node)
+{
+	*node = root;
+	while ( *node )
+	{
+		if (GET_NODE_VAL(*node) > key )
+			*node = TO_LEFT(*node);
+		else if (GET_NODE_VAL(*node) < key )
+			*node = TO_RIGHT(*node);
+		else return;
+	}
+	if (!(*node))
+		printf("Key %d not found\n", key);
+	return;
+}
 
 void walk_tree_postorder(branch_tree *root, 
 						unsigned int depth, 
@@ -406,9 +397,6 @@ void walk_tree_inorder(branch_tree *root,
 	return;
 }
 
-#define STR_BUFF 200
-
-
 void print_tree(branch_tree *root,  unsigned int depth)
 {
 	ptree_struct ptree;
@@ -436,7 +424,7 @@ void print_tree(branch_tree *root,  unsigned int depth)
 	ptree.dfl_prefix = dfl_prefix;
 	ptree.new_prefix = new_prefix;
 
-	walk_tree_preorder(root, depth, print_print_node, (void *)&ptree );
+	walk_tree_preorder(root, depth, print_tnode, (void *)&ptree );
 
 	while (phead->next) 
 		pop_node_from_ll(phead, NULL);
@@ -447,11 +435,9 @@ void print_tree(branch_tree *root,  unsigned int depth)
  	free(new_prefix);
 }
 
-void print_print_node(branch_tree *curr, void *arg)
+void print_tnode(branch_tree *curr, void *arg)
 {
 		unsigned int val = 0, len = 0;
-
-
 
 		ptree_struct *ptree = (ptree_struct *)arg;
 

@@ -29,6 +29,7 @@ int main()
 	
 	list_head *ll_node = NULL;
 	branch_tree *root = NULL; 
+	branch_tree *node = NULL; 
 
 	// init int head 
 	list_head *head_int = malloc(sizeof(list_head));
@@ -48,9 +49,6 @@ int main()
 		add_node( head_int, new_item );
 		
 	}
-
-	
-
 
 	for (i=10; i<20; i++)
 	{
@@ -81,12 +79,12 @@ int main()
 		BUILD TREE
 	*/
 	unsigned int A = (rand() % depth);
-	init_root_tree(&root, (void *)(&A));
+	init_troot(&root, (void *)(&A));
 
 	for (i = 0; i < depth; i++)
 	{
 		A = (rand() % depth);
-		init_node_tree(root, (void *)(&A));
+		init_tnode(root, (void *)(&A));
 	}
 
 	#if 0
@@ -102,8 +100,12 @@ int main()
 		count++;
 	}
 	#endif
+	unsigned int key;
+	search_tnode(root, 0, &node);
+	if (node)	
+		PRINT_TNODE_DBG(node);
 	print_tree(root, depth);
-	delete_tree(root, depth);
+	destroy_tree(root, depth);
 
 	free(head_int);
 
