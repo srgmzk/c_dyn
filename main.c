@@ -101,10 +101,14 @@ int main()
 	}
 	#endif
 	unsigned int key;
-	search_tnode(root, 0, &node);
+	search_tnode(root, 6, &node);
 	if (node)	
 		PRINT_TNODE_DBG(node);
+	
 	print_tree(root, depth);
+	delete_tnode(root, 18);
+
+	//print_tree(root, depth);
 	destroy_tree(root, depth);
 
 	free(head_int);

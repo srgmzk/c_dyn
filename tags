@@ -6,30 +6,31 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CC	Makefile	/^CC=gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-Wall -g$/;"	m
-GET_NODE_OFFSET	tree.h	63;"	d
-GET_NODE_VAL	tree.h	59;"	d
-HAVE_TWINS	tree.h	31;"	d
+CHANGE_NODE	tree.h	55;"	d
+GET_NODE_KEY	tree.h	83;"	d
+GET_NODE_OFFSET	tree.h	105;"	d
+HAVE_TWINS	tree.h	51;"	d
 INIT_HEAD	ll.h	42;"	d
-IS_LEAF	tree.h	29;"	d
-IS_LEFT	tree.h	39;"	d
-IS_NODE	tree.h	33;"	d
-IS_PARENT	tree.h	82;"	d
-IS_RIGHT	tree.h	36;"	d
+IS_LEAF	tree.h	49;"	d
+IS_LEFT	tree.h	63;"	d
+IS_NODE	tree.h	53;"	d
+IS_PARENT	tree.h	97;"	d
+IS_RIGHT	tree.h	60;"	d
 LDLIBS	Makefile	/^LDLIBS=$/;"	m
-LEFT_TRAV	tree.h	42;"	d
+LEFT_TRAV	tree.h	66;"	d
 LL_H	ll.h	21;"	d
 MAX_LIST_SIZE	ll.h	28;"	d
 MAX_PREFIX_SIZE	tree.c	23;"	d	file:
-NODE_VAL	tree.h	67;"	d
-PRINT_IN_STACK	tree.h	85;"	d
-PRINT_LEAF	tree.h	108;"	d
-PRINT_OFFSET	tree.h	101;"	d
-PRINT_OUT_STACK	tree.h	91;"	d
-PRINT_TNODE_DBG	tree.h	75;"	d
-RIGHT_TRAV	tree.h	50;"	d
-STACK_IS_NULL	tree.h	97;"	d
+NEXT_FROM_LEFT	tree.h	30;"	d
+NEXT_FROM_RIGHT	tree.h	42;"	d
+NODE_VAL	tree.h	88;"	d
+PRINT_LEAF	tree.h	123;"	d
+PRINT_OFFSET	tree.h	116;"	d
+PRINT_TNODE_DBG	tree.h	109;"	d
+RIGHT_TRAV	tree.h	74;"	d
+STACK_IS_NULL	tree.h	100;"	d
 TO_LEFT	tree.h	26;"	d
-TO_RIGHT	tree.h	27;"	d
+TO_RIGHT	tree.h	28;"	d
 TREE_H	tree.h	20;"	d
 add_node	ll.h	60;"	d
 add_tnode	tree.c	/^int add_tnode(branch_tree *root, branch_tree *new)$/;"	f
@@ -37,11 +38,12 @@ branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node
 branch_tree	tree.h	/^typedef struct branch_tree$/;"	s
 branch_tree	tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
 container_of	ll.h	33;"	d
+delete_tnode	tree.c	/^void delete_tnode(branch_tree *root, unsigned int key)$/;"	f
 depth	tree.h	/^	unsigned int depth;$/;"	m	struct:ptree_struct
-destroy_tnode	tree.c	/^void destroy_tnode(branch_tree *node, void *n)$/;"	f
+destroy_tnode	tree.c	/^void destroy_tnode(branch_tree *node, void *arg)$/;"	f
 destroy_tree	tree.c	/^void destroy_tree(branch_tree *root, unsigned depth)$/;"	f
 dfl_prefix	tree.h	/^ 	char *dfl_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
-fill_stack	tree.c	/^void fill_stack(list_head **head, branch_tree **node )$/;"	f
+fill_stack	tree.c	/^static void fill_stack(list_head **head, branch_tree **node )$/;"	f	file:
 for_each_entry	ll.h	39;"	d
 init_tnode	tree.c	/^void init_tnode(branch_tree *root, void *val)$/;"	f
 init_troot	tree.c	/^void init_troot(branch_tree **root, void *val)$/;"	f
@@ -69,8 +71,8 @@ offset	tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree
 offsetof	ll.h	30;"	d
 parent	tree.h	/^	branch_tree *parent;$/;"	m	struct:ptree_struct
 phead	tree.h	/^	list_head *phead;$/;"	m	struct:ptree_struct
-pop_node_from_ll	tree.c	/^int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
-pop_parent_from_ll	tree.c	/^int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f
+pop_node_from_ll	tree.c	/^static int pop_node_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	file:
+pop_parent_from_ll	tree.c	/^static int pop_parent_from_ll(list_head *head, ll_node_tree **ret)$/;"	f	file:
 prev	ll.h	/^	struct list_head *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
 print_int_node	ll.c	/^void print_int_node(list_head *head)$/;"	f
 print_tnode	tree.c	/^void print_tnode(branch_tree *curr, void *arg)$/;"	f
@@ -79,7 +81,7 @@ ptr_ll_node_A	ll.h	/^} ll_node_A, *ptr_ll_node_A;$/;"	t	typeref:struct:ll_node_A
 ptr_tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
 ptree_struct	tree.h	/^typedef struct ptree_struct$/;"	s
 ptree_struct	tree.h	/^} ptree_struct;$/;"	t	typeref:struct:ptree_struct
-push_node_to_ll	tree.c	/^void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f
+push_node_to_ll	tree.c	/^static void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )$/;"	f	file:
 remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
 remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
 right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree

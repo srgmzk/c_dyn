@@ -22,6 +22,107 @@
 
 #define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
+/* private methods */
+
+static void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )
+{	
+	ll_node_tree *ll_node = malloc(sizeof(ll_node_tree));
+	ll_node->node = *node;
+	ll_node->offset = offset;
+	add_node( head, &ll_node->ll_tree );
+}
+
+static int pop_node_from_ll(list_head *head, ll_node_tree **ret)
+{
+	ll_node_tree *node = NULL; 
+	if (head->next == NULL)
+		return 0;
+
+	while ( head->next )
+		head = head->next;
+
+	list_head *tmp = head->prev; 
+
+	node = list_entry(*head, ll_node_tree, ll_tree );
+
+	tmp->next = NULL;
+
+	if (ret)
+		memcpy(*ret, node, sizeof(ll_node_A));
+
+	free(node);
+	return 0;
+}
+
+static int pop_parent_from_ll(list_head *head, ll_node_tree **ret)
+{
+	ll_node_tree *node = NULL; 
+
+	if (head->next == NULL)
+		return 0;
+
+	while ( head->next )
+		head = head->next;
+
+	node = list_entry(*head, ll_node_tree, ll_tree );
+	//PRINT_OUT_STACK(node);
+
+	if (ret)
+		memcpy(*ret, node, sizeof(ll_node_A));
+
+	return 0;
+}
+
+static void fill_stack(list_head **head, branch_tree **node )
+{
+	while( *node )
+	{
+		push_node_to_ll(*head, node, 0);
+		if (TO_LEFT(*node))
+		{ 
+			
+			*node = TO_LEFT(*node);
+			#if 0
+			PRINT_IN_STACK(*node);
+			#endif
+
+		}
+		else if (TO_RIGHT(*node))
+		{
+			*node = TO_RIGHT(*node);
+			#if 0
+			PRINT_IN_STACK(*node);
+			#endif
+		}
+		else break;	
+	}
+}
+
+/* basic methods */
+void init_tnode(branch_tree *root, void *val)
+{
+	int *new_val = (int *)(val);
+	branch_tree *branch;
+	tree_node *Tree = calloc(1, sizeof(tree_node));
+	branch = &(Tree->branch);
+	Tree->val = *new_val;	
+
+	if (add_tnode( root, branch ))
+	{
+//		printf("Double detected. Drop val %d\n", Tree->val);
+		free(Tree);  
+	}
+
+}
+
+void init_troot(branch_tree **root, void *val)
+{
+	int *new_val = (int *)(val);
+	tree_node *Tree = calloc(1, sizeof(tree_node));
+	*root = &(Tree->branch);
+	Tree->val = *new_val;	
+	add_tnode(*root, *root);
+}
 
 int add_tnode(branch_tree *root, branch_tree *new)
 {
@@ -68,123 +169,130 @@ int add_tnode(branch_tree *root, branch_tree *new)
 	return 0;
 }
 
-void init_tnode(branch_tree *root, void *val)
+void search_tnode(branch_tree *root, unsigned key, branch_tree **node)
 {
-	int *new_val = (int *)(val);
-	branch_tree *branch;
-	tree_node *Tree = calloc(1, sizeof(tree_node));
-	branch = &(Tree->branch);
-	Tree->val = *new_val;	
-
-	if (add_tnode( root, branch ))
+	*node = root;
+	while ( *node )
 	{
-//		printf("Double detected. Drop val %d\n", Tree->val);
-		free(Tree);  
-	}
-
-}
-
-
-void init_troot(branch_tree **root, void *val)
-{
-	int *new_val = (int *)(val);
-	tree_node *Tree = calloc(1, sizeof(tree_node));
-	*root = &(Tree->branch);
-	Tree->val = *new_val;	
-	add_tnode(*root, *root);
-}
-
-
-void push_node_to_ll(list_head *head, branch_tree **node, unsigned offset )
-{	
-	ll_node_tree *ll_node = malloc(sizeof(ll_node_tree));
-	ll_node->node = *node;
-	ll_node->offset = offset;
-	add_node( head, &ll_node->ll_tree );
-}
-
-int pop_node_from_ll(list_head *head, ll_node_tree **ret)
-{
-	ll_node_tree *node = NULL; 
-	if (head->next == NULL)
-		return 0;
-
-	while ( head->next )
-		head = head->next;
-
-	list_head *tmp = head->prev; 
-
-	node = list_entry(*head, ll_node_tree, ll_tree );
-
-	tmp->next = NULL;
-
-	if (ret)
-		memcpy(*ret, node, sizeof(ll_node_A));
-
-	free(node);
-	return 0;
-}
-
-int pop_parent_from_ll(list_head *head, ll_node_tree **ret)
-{
-	ll_node_tree *node = NULL; 
-
-	if (head->next == NULL)
-		return 0;
-
-	while ( head->next )
-		head = head->next;
-
-	node = list_entry(*head, ll_node_tree, ll_tree );
-	//PRINT_OUT_STACK(node);
-
-	if (ret)
-		memcpy(*ret, node, sizeof(ll_node_A));
-
-	return 0;
-}
-
-void fill_stack(list_head **head, branch_tree **node )
-{
-	while( *node )
-	{
-		push_node_to_ll(*head, node, 0);
-		if (TO_LEFT(*node))
-		{ 
-			
+		if (GET_NODE_KEY(*node) > key )
 			*node = TO_LEFT(*node);
-			#if 0
-			PRINT_IN_STACK(*node);
-			#endif
-
-		}
-		else if (TO_RIGHT(*node))
-		{
+		else if (GET_NODE_KEY(*node) < key )
 			*node = TO_RIGHT(*node);
-			#if 0
-			PRINT_IN_STACK(*node);
-			#endif
-		}
-		else break;	
+		else return;
 	}
+	if (!(*node))
+		printf("Key %d not found\n", key);
+	return;
 }
-
-/*
-	Callbacks routines
-*/
-void destroy_tnode(branch_tree *node, void *n)
-{
-	tree_node *item = list_entry(*node, tree_node, branch);
-	free(item);
-}
-
 
 void destroy_tree(branch_tree *root, unsigned depth)
 {
 	walk_tree_postorder(root, depth, destroy_tnode, NULL);
 }
 
+void delete_tnode(branch_tree *root, unsigned int key)
+{
+	branch_tree *node;
+	branch_tree *ch_node;
+	branch_tree *tmp; 
+	branch_tree *parent;
 
+	search_tnode( root, key, &node );
+
+	if (node)
+	{
+		tmp = node;
+		if (GET_NODE_KEY(node) > GET_NODE_KEY(root)) 
+		{	
+			NEXT_FROM_RIGHT(tmp, parent);		
+		}
+		else if (GET_NODE_KEY(node) < GET_NODE_KEY(root)) // key left from root  
+		{
+			NEXT_FROM_LEFT(tmp, parent);			
+		}
+		else // key is root
+		{
+			if (TO_LEFT(tmp))
+			{
+				tmp = node->left;
+				NEXT_FROM_LEFT(tmp, parent);
+			}
+			else if (TO_RIGHT(tmp))
+			{
+				tmp = node->right;
+				NEXT_FROM_RIGHT(tmp, parent); 
+			}
+		}  
+ 
+	}
+	else return;
+	
+	
+	ch_node->left = node->left;
+	ch_node->right = node->right;
+	ch_node = node;
+		
+
+	printf("-------------> tmp: %d, parnt: %d\n", GET_NODE_KEY(tmp), GET_NODE_KEY(parent)); // key left from root  
+	
+destroy_and_return:
+	destroy_tnode(node, NULL);
+	return;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+			if (GET_NODE_KEY(tmp) > GET_NODE_KEY(root)) 
+			{
+				if (HAVE_TWINS(tmp))
+				{
+					tmp = TO_LEFT(tmp);
+					while (tmp->right) 
+					{
+						parent = tmp;
+						tmp = TO_RIGHT(tmp);	
+					}
+					
+					CHANGE_NODE(node, parent, tmp);
+					goto destroy_and_return;
+				}
+				if (TO_LEFT(tmp))
+				{
+					CHANGE_NODE(node, parent, TO_LEFT(tmp));
+					goto destroy_and_return;
+				}
+				else if (TO_RIGHT(tmp))
+				{
+					CHANGE_NODE(node, parent,TO_RIGHT(tmp));
+					goto destroy_and_return;
+				}
+				else	
+				{ 
+					goto destroy_and_return;
+				}
+			}
+		}
+	}
+
+destroy_and_return:
+	destroy_tnode(node, NULL);
+	return;
+
+}
+*/
 void walk_tree_preorder(branch_tree *root, 
 						unsigned int depth, 
 						void (*action)(branch_tree *, void *arg),
@@ -232,22 +340,6 @@ void walk_tree_preorder(branch_tree *root,
 
  	free(list_node);
 	free(phead);
-}
-
-void search_tnode(branch_tree *root, unsigned key, branch_tree **node)
-{
-	*node = root;
-	while ( *node )
-	{
-		if (GET_NODE_VAL(*node) > key )
-			*node = TO_LEFT(*node);
-		else if (GET_NODE_VAL(*node) < key )
-			*node = TO_RIGHT(*node);
-		else return;
-	}
-	if (!(*node))
-		printf("Key %d not found\n", key);
-	return;
 }
 
 void walk_tree_postorder(branch_tree *root, 
@@ -412,7 +504,7 @@ void print_tree(branch_tree *root,  unsigned int depth)
 	memset(dfl_prefix, 0, MAX_PREFIX_SIZE(depth)/2);
 	memset(new_prefix, 0, MAX_PREFIX_SIZE(depth)/2);
 
-	int	val = (int)GET_NODE_VAL(root);
+	int	val = (int)GET_NODE_KEY(root);
 	printf("%d .\n", val);
 
 	ptree.x_offset = 0;
@@ -433,6 +525,15 @@ void print_tree(branch_tree *root,  unsigned int depth)
 	free(phead);
  	free(dfl_prefix);
  	free(new_prefix);
+}
+
+/*
+	Callbacks routines
+*/
+void destroy_tnode(branch_tree *node, void *arg)
+{
+	tree_node *item = list_entry(*node, tree_node, branch);
+	free(item);
 }
 
 void print_tnode(branch_tree *curr, void *arg)
@@ -459,12 +560,12 @@ void print_tnode(branch_tree *curr, void *arg)
 			parent = list_node->node;
 		}
 		#if 0 
-		printf("Parent: %d ", (int)GET_NODE_VAL(parent));
-		printf("Current: %d ", (int)GET_NODE_VAL(curr));
+		printf("Parent: %d ", (int)GET_NODE_KEY(parent));
+		printf("Current: %d ", (int)GET_NODE_KEY(curr));
 		printf("Left:");
-		(curr->left)?(printf(" %d ", (int)GET_NODE_VAL(curr->left))):(printf(" - "));
+		(curr->left)?(printf(" %d ", (int)GET_NODE_KEY(curr->left))):(printf(" - "));
 		printf("Right:");
-		(curr->right)?(printf(" %d ", (int)GET_NODE_VAL(curr->right))):(printf(" - "));
+		(curr->right)?(printf(" %d ", (int)GET_NODE_KEY(curr->right))):(printf(" - "));
 		printf("Stack: %d",(!STACK_IS_NULL(phead)));
 
 		printf("\n");
@@ -483,7 +584,7 @@ void print_tnode(branch_tree *curr, void *arg)
 
 				PRINT_OFFSET(x_offset, offset);
 
-				val = (int)GET_NODE_VAL(curr);
+				val = (int)GET_NODE_KEY(curr);
 				sprintf(val_str, "[%d]R", val );
 
 				len = 2 * (2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
@@ -503,7 +604,7 @@ void print_tnode(branch_tree *curr, void *arg)
 		{
 			PRINT_OFFSET(x_offset, offset);
 			x_offset += 4;
-			val = (int)GET_NODE_VAL(curr->left);
+			val = (int)GET_NODE_KEY(curr->left);
 			sprintf(val_str, "[%d]L", val );
 
 			len = 2*(2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
@@ -537,7 +638,7 @@ void print_tnode(branch_tree *curr, void *arg)
 		{
 			if (!HAVE_TWINS(curr))
 			{
-				val = (int)GET_NODE_VAL(curr->right);
+				val = (int)GET_NODE_KEY(curr->right);
 				sprintf(val_str, "[%d]R", val );
 
 				len = 2 * ( 2 * strlen(offset) + 1 + strlen(dfl_prefix) + 1 + strlen(val_str) + 1);
