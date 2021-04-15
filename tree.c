@@ -160,6 +160,12 @@ int add_tnode(branch_tree *root, branch_tree *new)
 	return 0;
 }
 
+unsigned get_num_nodes(branch_tree *root)
+{
+	return walk_tree_preorder(root, NULL, NULL);
+}
+
+
 void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tree **parent)
 {
 	*node = root;
@@ -185,7 +191,7 @@ void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tr
 
 void destroy_tree(branch_tree *root, unsigned depth)
 {
-	walk_tree_postorder(root, depth, destroy_tnode, NULL);
+	walk_tree_postorder(root, destroy_tnode, NULL);
 }
 
 branch_tree *delete_tnode(branch_tree *root, unsigned int key)
@@ -194,11 +200,25 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	branch_tree *nnode; 
 	branch_tree *oparent;
 	branch_tree *nparent;
-
+	
 	search_tnode(root, key, &onode, &oparent);
+	printf(">> new_node: %d, new parent: %d, old_node: %d, old_parent: %d\n", 
+		GET_NODE_KEY(nnode), GET_NODE_KEY(nparent), GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
 
 	if (onode)
 	{
+		if (IS_LEAF(onode))
+		{
+			if (IS_LEFT(onode, oparent))
+			{
+				oparent->left = NULL;
+			}
+			if (IS_RIGHT(onode, oparent))
+			{
+				oparent->right = NULL;
+			}
+			goto out;
+		}
 		nnode = onode;
 		if (GET_NODE_KEY(onode) > GET_NODE_KEY(root)) 
 		{	
@@ -220,6 +240,11 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 				nnode = onode->right;
 				NEXT_FROM_RIGHT(nnode, nparent); 
 			}
+			else 
+			{
+				nnode = onode;
+				nparent = onode;
+			}
 		}  
  
 	}
@@ -235,12 +260,21 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	else if (IS_LEFT(onode, oparent))	
 	{
 		oparent->left = nnode;
+		if (TO_RIGHT(onode))
+		{
+			nnode->right = TO_RIGHT(onode);
+		}
+		
 	}
 	else //delete parent 
 	{
-		nnode->left = TO_LEFT(root);
-		nnode->right = TO_RIGHT(root);
-		root = nnode;
+		if ( oparent != nparent )
+		{
+			nnode->left = TO_LEFT(root);
+			nnode->right = TO_RIGHT(root);
+			root = nnode;
+		}
+		else return NULL;
 	}
 
 	if (IS_LEFT(nnode, nparent))
@@ -253,16 +287,17 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 		nparent->right = NULL;
 	}
 
-	destroy_tnode(onode, NULL);
-	return root;
+out:
+destroy_tnode(onode, NULL);
+return root;
 
 }
 
-void walk_tree_preorder(branch_tree *root, 
-						unsigned int depth, 
+unsigned int walk_tree_preorder(branch_tree *root, 
 						void (*action)(branch_tree *, void *arg),
 						void *arg)
 {
+	unsigned int idx=0;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
 
 	list_head *phead = calloc(1, sizeof(list_head));
@@ -273,7 +308,7 @@ void walk_tree_preorder(branch_tree *root,
 
 	if (action)
 		action(root, arg);	
-
+	idx++;
 	while ( TO_RIGHT(curr) || (TO_LEFT(curr)) || !STACK_IS_NULL(phead))
 	{
 		if ( HAVE_TWINS(curr) )
@@ -297,6 +332,7 @@ void walk_tree_preorder(branch_tree *root,
 		{
 			if (action)
 				action( curr, arg);	
+			idx++;
 		}
 	}	
 
@@ -305,13 +341,14 @@ void walk_tree_preorder(branch_tree *root,
 
  	free(list_node);
 	free(phead);
+	return idx;
 }
 
-void walk_tree_postorder(branch_tree *root, 
-						unsigned int depth, 
+unsigned  walk_tree_postorder(branch_tree *root, 
 						void (*action)(branch_tree *, void *arg),
 						void *arg)
 {
+	assert(root);
 	int idx = 0;
 	bool is_left = false, have_twins = false;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
@@ -389,12 +426,12 @@ void walk_tree_postorder(branch_tree *root,
 	free(head);
 	free(phead);
 	free(list_node);
-	return;
+	return idx;
 }
 
-void walk_tree_inorder(branch_tree *root, 
-						unsigned int depth, 
-						void (*action)(branch_tree *))
+unsigned walk_tree_inorder(branch_tree *root, 
+						void (*action)(branch_tree *, void *arg),
+						void *arg)
 {
 	int idx = 0;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
@@ -451,7 +488,7 @@ void walk_tree_inorder(branch_tree *root,
 		
 	}
 
-	return;
+	return idx;
 }
 
 void print_tree(branch_tree *root,  unsigned int depth)
@@ -481,7 +518,7 @@ void print_tree(branch_tree *root,  unsigned int depth)
 	ptree.dfl_prefix = dfl_prefix;
 	ptree.new_prefix = new_prefix;
 
-	walk_tree_preorder(root, depth, print_tnode, (void *)&ptree );
+	walk_tree_preorder(root, print_tnode, (void *)&ptree );
 
 	while (phead->next) 
 		pop_node_from_ll(phead, NULL);

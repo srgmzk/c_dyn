@@ -102,14 +102,25 @@ int main()
 	}
 	#endif
 	unsigned int key;
-	search_tnode(root, 6, &node, &parent);
+	search_tnode(root, 13, &node, &parent);
 	if (node)	
 		PRINT_TNODE_DBG(node);
 	
 	print_tree(root, depth);
-	root = delete_tnode(root, 8);
 
-	print_tree(root, depth);
+	
+	depth = get_num_nodes(root);
+	printf("depth 1: %d\n", depth);
+
+	root = delete_tnode(root, 19);
+	
+	depth = get_num_nodes(root);
+
+	printf("depth 2: %d\n", depth);
+	if (root)
+		print_tree(root, depth);
+	
+		
 	//print_tree(root, depth);
 	destroy_tree(root, depth);
 

@@ -28,7 +28,7 @@
 #define TO_RIGHT(_node_) ((_node_)->right)
 
 #define NEXT_FROM_LEFT(_node_, _parent_)\
-	while(TO_RIGHT((_node_)) )\
+	while(TO_RIGHT((_node_)) && IS_NODE(TO_RIGHT(_node_)))\
 	{\
 		(_parent_) = (_node_);\
 		(_node_)=TO_RIGHT((_node_));\
@@ -37,13 +37,26 @@
 	{\
 		(_parent_) = (_node_);\
 		(_node_)=TO_LEFT((_node_));\
-	}
+	}\
+	
 		
 #define NEXT_FROM_RIGHT(_node_, _parent_)\
-	while (TO_LEFT(_node_))\
+	if (TO_RIGHT(_node_))\
+	while(TO_RIGHT(_node_))\
 	{\
 		(_parent_) = (_node_);\
-		(_node_)=TO_LEFT(_node_);\
+		(_node_)=TO_RIGHT((_node_));\
+	}\
+	else\
+	{\
+		(_parent_) = (_node_);\
+		(_node_) = (TO_LEFT(_node_));\
+		if (TO_RIGHT(_node_))\
+		while(TO_RIGHT(_node_))\
+		{\
+			(_parent_) = (_node_);\
+			(_node_)=TO_RIGHT((_node_));\
+		}\
 	}
 
 #define IS_LEAF(_node_) (( (_node_)->left || (_node_)->right ) ? 0:1)
@@ -160,18 +173,20 @@ typedef struct ptree_struct
 void init_troot(branch_tree **root, void *val);
 void init_tnode(branch_tree *root, void *val);
 int add_tnode(branch_tree *root, branch_tree *new_nodea);
+unsigned get_num_nodes(branch_tree *root);
 void print_tree(branch_tree *root, unsigned int depth);
 void search_tnode(branch_tree *root, unsigned int key, branch_tree **node, branch_tree **parent);
 branch_tree *delete_tnode(branch_tree *root, unsigned int key);
 void destroy_tree(branch_tree *root, unsigned depth);
 
-void walk_tree_inorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *));
-void walk_tree_postorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
-void walk_tree_preorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *, void *arg), void *arg);
+
+unsigned int walk_tree_inorder(branch_tree *root, void (*action)(branch_tree *, void *arg), void *arg);
+unsigned int walk_tree_postorder(branch_tree *root, void (*action)(branch_tree *, void *arg), void *arg);
+unsigned int walk_tree_preorder(branch_tree *root, void (*action)(branch_tree *, void *arg), void *arg);
 
 /* callbacks */
 void destroy_tnode(branch_tree *, void *);
 void print_tnode(branch_tree *,  void *);
-
+void count_tnode(branch_tree *,  void *);
 
 #endif
