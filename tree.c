@@ -65,7 +65,6 @@ static int pop_parent_from_ll(list_head *head, ll_node_tree **ret)
 		head = head->next;
 
 	node = list_entry(*head, ll_node_tree, ll_tree );
-	//PRINT_OUT_STACK(node);
 
 	if (ret)
 		memcpy(*ret, node, sizeof(ll_node_A));
@@ -80,19 +79,11 @@ static void fill_stack(list_head **head, branch_tree **node )
 		push_node_to_ll(*head, node, 0);
 		if (TO_LEFT(*node))
 		{ 
-			
 			*node = TO_LEFT(*node);
-			#if 0
-			PRINT_IN_STACK(*node);
-			#endif
-
 		}
 		else if (TO_RIGHT(*node))
 		{
 			*node = TO_RIGHT(*node);
-			#if 0
-			PRINT_IN_STACK(*node);
-			#endif
 		}
 		else break;	
 	}
@@ -267,58 +258,6 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-			if (GET_NODE_KEY(tmp) > GET_NODE_KEY(root)) 
-			{
-				if (HAVE_TWINS(tmp))
-				{
-					tmp = TO_LEFT(tmp);
-					while (tmp->right) 
-					{
-						parent = tmp;
-						tmp = TO_RIGHT(tmp);	
-					}
-					
-					CHANGE_NODE(node, parent, tmp);
-					goto destroy_and_return;
-				}
-				if (TO_LEFT(tmp))
-				{
-					CHANGE_NODE(node, parent, TO_LEFT(tmp));
-					goto destroy_and_return;
-				}
-				else if (TO_RIGHT(tmp))
-				{
-					CHANGE_NODE(node, parent,TO_RIGHT(tmp));
-					goto destroy_and_return;
-				}
-				else	
-				{ 
-					goto destroy_and_return;
-				}
-			}
-		}
-	}
-
-destroy_and_return:
-	destroy_tnode(node, NULL);
-	return;
-
-}
-*/
 void walk_tree_preorder(branch_tree *root, 
 						unsigned int depth, 
 						void (*action)(branch_tree *, void *arg),
