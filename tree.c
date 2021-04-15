@@ -169,15 +169,22 @@ int add_tnode(branch_tree *root, branch_tree *new)
 	return 0;
 }
 
-void search_tnode(branch_tree *root, unsigned key, branch_tree **node)
+void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tree **parent)
 {
 	*node = root;
+	*parent = root;
 	while ( *node )
 	{
 		if (GET_NODE_KEY(*node) > key )
+		{
+			*parent = *node;
 			*node = TO_LEFT(*node);
+		}
 		else if (GET_NODE_KEY(*node) < key )
+		{
+			*parent = *node;
 			*node = TO_RIGHT(*node);
+		}
 		else return;
 	}
 	if (!(*node))
@@ -190,54 +197,73 @@ void destroy_tree(branch_tree *root, unsigned depth)
 	walk_tree_postorder(root, depth, destroy_tnode, NULL);
 }
 
-void delete_tnode(branch_tree *root, unsigned int key)
+branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 {
-	branch_tree *node;
-	branch_tree *ch_node;
-	branch_tree *tmp; 
-	branch_tree *parent;
+	branch_tree *onode;
+	branch_tree *nnode; 
+	branch_tree *oparent;
+	branch_tree *nparent;
 
-	search_tnode( root, key, &node );
+	search_tnode(root, key, &onode, &oparent);
 
-	if (node)
+	if (onode)
 	{
-		tmp = node;
-		if (GET_NODE_KEY(node) > GET_NODE_KEY(root)) 
+		nnode = onode;
+		if (GET_NODE_KEY(onode) > GET_NODE_KEY(root)) 
 		{	
-			NEXT_FROM_RIGHT(tmp, parent);		
+			NEXT_FROM_RIGHT(nnode, nparent);		
 		}
-		else if (GET_NODE_KEY(node) < GET_NODE_KEY(root)) // key left from root  
+		else if (GET_NODE_KEY(onode) < GET_NODE_KEY(root)) // key left from root  
 		{
-			NEXT_FROM_LEFT(tmp, parent);			
+			NEXT_FROM_LEFT(nnode, nparent);			
 		}
 		else // key is root
 		{
-			if (TO_LEFT(tmp))
+			if (TO_LEFT(onode))
 			{
-				tmp = node->left;
-				NEXT_FROM_LEFT(tmp, parent);
+				nnode = onode->left;
+				NEXT_FROM_LEFT(nnode, nparent);
 			}
-			else if (TO_RIGHT(tmp))
+			else if (TO_RIGHT(onode))
 			{
-				tmp = node->right;
-				NEXT_FROM_RIGHT(tmp, parent); 
+				nnode = onode->right;
+				NEXT_FROM_RIGHT(nnode, nparent); 
 			}
 		}  
  
 	}
-	else return;
-	
-	
-	ch_node->left = node->left;
-	ch_node->right = node->right;
-	ch_node = node;
-		
+	else return root;
 
-	printf("-------------> tmp: %d, parnt: %d\n", GET_NODE_KEY(tmp), GET_NODE_KEY(parent)); // key left from root  
+	printf(">> new_node: %d, new parent: %d, old_node: %d, old_parent: %d\n", 
+		GET_NODE_KEY(nnode), GET_NODE_KEY(nparent), GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
 	
-destroy_and_return:
-	destroy_tnode(node, NULL);
-	return;
+	if (IS_RIGHT(onode, oparent))
+	{
+		oparent->right = nnode;
+	}
+	else if (IS_LEFT(onode, oparent))	
+	{
+		oparent->left = nnode;
+	}
+	else //delete parent 
+	{
+		nnode->left = TO_LEFT(root);
+		nnode->right = TO_RIGHT(root);
+		root = nnode;
+	}
+
+	if (IS_LEFT(nnode, nparent))
+	{
+		nparent->left = NULL;
+	}
+
+	if (IS_RIGHT(nnode, nparent))
+	{
+		nparent->right = NULL;
+	}
+
+	destroy_tnode(onode, NULL);
+	return root;
 
 }
 

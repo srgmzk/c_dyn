@@ -38,7 +38,7 @@ branch	tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node
 branch_tree	tree.h	/^typedef struct branch_tree$/;"	s
 branch_tree	tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
 container_of	ll.h	33;"	d
-delete_tnode	tree.c	/^void delete_tnode(branch_tree *root, unsigned int key)$/;"	f
+delete_tnode	tree.c	/^branch_tree *delete_tnode(branch_tree *root, unsigned int key)$/;"	f
 depth	tree.h	/^	unsigned int depth;$/;"	m	struct:ptree_struct
 destroy_tnode	tree.c	/^void destroy_tnode(branch_tree *node, void *arg)$/;"	f
 destroy_tree	tree.c	/^void destroy_tree(branch_tree *root, unsigned depth)$/;"	f
@@ -86,7 +86,7 @@ remove_first	ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
 remove_last	ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
 right	tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
 root	tree.h	/^	branch_tree *root;$/;"	m	struct:ptree_struct
-search_tnode	tree.c	/^void search_tnode(branch_tree *root, unsigned key, branch_tree **node)$/;"	f
+search_tnode	tree.c	/^void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tree **parent)$/;"	f
 tree_node	tree.h	/^typedef struct tree_node$/;"	s
 tree_node	tree.h	/^} tree_node, *ptr_tree_node;$/;"	t	typeref:struct:tree_node
 val	ll.h	/^	int val;$/;"	m	struct:ll_node_A

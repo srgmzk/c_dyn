@@ -161,8 +161,8 @@ void init_troot(branch_tree **root, void *val);
 void init_tnode(branch_tree *root, void *val);
 int add_tnode(branch_tree *root, branch_tree *new_nodea);
 void print_tree(branch_tree *root, unsigned int depth);
-void search_tnode(branch_tree *root, unsigned int key, branch_tree **node);
-void delete_tnode(branch_tree *root, unsigned int key);
+void search_tnode(branch_tree *root, unsigned int key, branch_tree **node, branch_tree **parent);
+branch_tree *delete_tnode(branch_tree *root, unsigned int key);
 void destroy_tree(branch_tree *root, unsigned depth);
 
 void walk_tree_inorder(branch_tree *root, unsigned int depth, void (*action)(branch_tree *));

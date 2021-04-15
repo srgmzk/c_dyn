@@ -30,6 +30,7 @@ int main()
 	list_head *ll_node = NULL;
 	branch_tree *root = NULL; 
 	branch_tree *node = NULL; 
+	branch_tree *parent = NULL; 
 
 	// init int head 
 	list_head *head_int = malloc(sizeof(list_head));
@@ -101,13 +102,14 @@ int main()
 	}
 	#endif
 	unsigned int key;
-	search_tnode(root, 6, &node);
+	search_tnode(root, 6, &node, &parent);
 	if (node)	
 		PRINT_TNODE_DBG(node);
 	
 	print_tree(root, depth);
-	delete_tnode(root, 18);
+	root = delete_tnode(root, 8);
 
+	print_tree(root, depth);
 	//print_tree(root, depth);
 	destroy_tree(root, depth);
 
