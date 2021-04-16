@@ -276,12 +276,10 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 		}
 		else return NULL;
 	}
-
-	if (IS_LEFT(nnode, nparent))
+	if (IS_LEFT(nnode, nparent)) 
 	{
 		nparent->left = NULL;
 	}
-
 	if (IS_RIGHT(nnode, nparent))
 	{
 		nparent->right = NULL;
