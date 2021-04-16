@@ -202,8 +202,8 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	branch_tree *nparent;
 	
 	search_tnode(root, key, &onode, &oparent);
-	printf(">> new_node: %d, new parent: %d, old_node: %d, old_parent: %d\n", 
-		GET_NODE_KEY(nnode), GET_NODE_KEY(nparent), GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
+	printf(">> old_node: %d, old_parent: %d\n", 
+		GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
 
 	if (onode)
 	{
@@ -219,7 +219,9 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 			}
 			goto out;
 		}
+
 		nnode = onode;
+
 		if (GET_NODE_KEY(onode) > GET_NODE_KEY(root)) 
 		{	
 			NEXT_FROM_RIGHT(nnode, nparent);		
@@ -260,11 +262,7 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	else if (IS_LEFT(onode, oparent))	
 	{
 		oparent->left = nnode;
-		if (TO_RIGHT(onode))
-		{
-			nnode->right = TO_RIGHT(onode);
-		}
-		
+		nnode->right = TO_RIGHT(onode);
 	}
 	else //delete parent 
 	{

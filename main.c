@@ -112,16 +112,13 @@ int main()
 	depth = get_num_nodes(root);
 	printf("depth 1: %d\n", depth);
 
-	root = delete_tnode(root, 19);
-	
+	root = delete_tnode(root, 13);
 	depth = get_num_nodes(root);
 
 	printf("depth 2: %d\n", depth);
 	if (root)
 		print_tree(root, depth);
-	
 		
-	//print_tree(root, depth);
 	destroy_tree(root, depth);
 
 	free(head_int);
