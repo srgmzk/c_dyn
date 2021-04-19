@@ -42,12 +42,14 @@
 		
 #define NEXT_FROM_RIGHT(_node_, _parent_)\
 	if (TO_RIGHT(_node_))\
-	while(TO_RIGHT(_node_))\
 	{\
-		(_parent_) = (_node_);\
-		(_node_)=TO_RIGHT((_node_));\
+		while(TO_RIGHT(_node_))\
+		{\
+			(_parent_) = (_node_);\
+			(_node_)=TO_RIGHT((_node_));\
+		}\
 	}\
-	else\
+	else if (TO_LEFT(_node_))\
 	{\
 		(_parent_) = (_node_);\
 		(_node_) = (TO_LEFT(_node_));\

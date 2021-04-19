@@ -205,8 +205,7 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	if (onode)
 	{
 		printf(">> old_node: %d, old_parent: %d\n", GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
-
-		if (IS_LEAF(onode) && (onode!=root))
+		if (IS_LEAF(onode))
 		{
 			if (IS_LEFT(onode, oparent))
 			{
@@ -234,7 +233,17 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 			if (TO_LEFT(onode))
 			{
 				nnode = onode->left;
-				NEXT_FROM_LEFT(nnode, nparent);
+//				NEXT_FROM_LEFT(nnode, nparent);
+				while(TO_RIGHT(nnode) && IS_NODE(TO_RIGHT(nnode)))
+				{
+					(nparent) = (nnode);
+					(nnode)=TO_RIGHT((nnode));
+				}
+				if (TO_LEFT((nnode)))
+				{
+					(nparent) = (nnode);
+					(nnode)=TO_LEFT(nnode);
+				}
 			}
 			else if (TO_RIGHT(onode))
 			{
@@ -247,14 +256,12 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 				nparent = onode;
 			}
 		}  
+ 
 	}
 	else return root;
 
 	if (!nparent) 
-	{
-		root = nnode;
-		nparent = nnode;
-	}
+		root = oparent;
 
 	printf(">> new_node: %d, new parent: %d, old_node: %d, old_parent: %d\n", 
 		GET_NODE_KEY(nnode), GET_NODE_KEY(nparent), GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
@@ -297,7 +304,6 @@ unsigned int walk_tree_preorder(branch_tree *root,
 						void (*action)(branch_tree *, void *arg),
 						void *arg)
 {
-	
 	unsigned int idx=0;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
 

@@ -1,18 +1,3 @@
-# Variables for Makefile:
-# =======================
-# $@ - Full name of target file (.o, .exe)
-# $* - Name of target file without suffix ( ex: prog.c -> prog )
-# $< - Name of source file ( ex: for prog.o, source file prog.c, => $< include prog c
-#
-# Makefile rules
-# ==============
-# 
-# target: depends
-#         script	
-# 
-# Make running without params check first target: make first
-#
-
 TARGET: ll.o libll.a tree.o libtree.a main.o main 
 
 CC=gcc
@@ -24,7 +9,7 @@ main: main.o
 	${CC} ${CFLAGS} main.o -o main -L. -I. -lll -ltree
 
 main.o: main.c
-	${CC} ${CFLSGS} -c main.c -o main.o
+	${CC} ${CFLAGS} -c main.c -o main.o
 
 
 ll.o: ll.c

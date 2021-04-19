@@ -79,15 +79,18 @@ int main()
 	/*
 		BUILD TREE
 	*/
-	unsigned int A = (rand() % depth);
+	unsigned int A = 2;
+	//init_troot(&root, (void *)(&A));
 	init_troot(&root, (void *)(&A));
-
+/*
 	for (i = 0; i < depth; i++)
 	{
 		A = (rand() % depth);
 		init_tnode(root, (void *)(&A));
 	}
-
+*/
+	A = 4;
+	init_tnode(root, (void *)(&A));
 	#if 0
 	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
 	init_root_tree(&root, (void *)&tmp_item.val);
@@ -112,14 +115,17 @@ int main()
 	depth = get_num_nodes(root);
 	printf("depth 1: %d\n", depth);
 
-	root = delete_tnode(root, 13);
-	depth = get_num_nodes(root);
+	root = delete_tnode(root, 2);
 
-	printf("depth 2: %d\n", depth);
+	
 	if (root)
+	{
+		depth = get_num_nodes(root);
+		printf("depth 2: %d\n", depth);
 		print_tree(root, depth);
-		
-	destroy_tree(root, depth);
+
+		destroy_tree(root, depth);
+	}	
 
 	free(head_int);
 
