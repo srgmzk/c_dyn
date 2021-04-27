@@ -23,7 +23,7 @@
 
 int main()
 {
-
+#if 1
 	int ret;
 	struct tb_event ev;
 	uint32_t curr_cmd = 1;
@@ -42,18 +42,15 @@ int main()
 
 	tb_frame ctrl_frame = {.minX = 0, .maxX = 49, .minY = 0, .maxY = h-2};
 	tb_frame out_frame = {.minX = 50, .maxX = (w-2), .minY = 0, .maxY = h-2};
+	sprintf(ctrl_frame.frName, "%s", "main");
+	sprintf(out_frame.frName, "%s", "out");
 
 	tb_select_input_mode(TB_INPUT_ESC | TB_INPUT_MOUSE);
 	tb_clear();
-
-	ctrl_frame.frPid = getpid();
-	sprintf(ctrl_frame.frName, "%s", "main");
+	
 	draw_frame(&ctrl_frame);
-	draw_cmd_list(&ctrl_frame,0, &curr_cmd);
-
-	out_frame.frPid = getpid();
-	sprintf(out_frame.frName, "%s", "out");
 	draw_frame(&out_frame);
+	draw_cmd_list(&ctrl_frame,0, &curr_cmd);
 
 	tb_select_input_mode(0);
 	tb_present();
@@ -101,15 +98,9 @@ int main()
 
 	}	
 
-
-
-
-
-
-
-
+#endif
 ///////////////////////////////////////////////////////////////////////////////////////////
-/*
+
 	unsigned int depth = MAX_LIST_SIZE;
 
 	//ll_node_A *a_item, tmp_item;
@@ -210,7 +201,7 @@ int main()
 	destroy_tree(root, depth);
 	free(head_int);
 
-*/
+
 out:
 	tb_shutdown();
 

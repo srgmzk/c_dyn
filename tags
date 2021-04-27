@@ -25,7 +25,7 @@ LDLIBS	Makefile	/^LDLIBS=$/;"	m
 LEFT_TRAV	include/tree.h	81;"	d
 LL_H	include/ll.h	21;"	d
 MAX_LIST_SIZE	include/ll.h	28;"	d
-MAX_PREFIX_SIZE	src/tree.c	23;"	d	file:
+MAX_PREFIX_SIZE	src/tree.c	26;"	d	file:
 NEXT_FROM_LEFT	include/tree.h	30;"	d
 NEXT_FROM_RIGHT	include/tree.h	43;"	d
 NODE_VAL	include/tree.h	103;"	d

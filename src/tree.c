@@ -17,6 +17,9 @@
  */
 
 #include "../include/tree.h"
+#include <sys/types.h>
+#include <stdint.h>
+
 #include <assert.h>
 #include <stdbool.h>
 
@@ -539,6 +542,9 @@ void destroy_tnode(branch_tree *node, void *arg)
 	free(item);
 }
 
+extern void printf_tb(int x, int y, uint16_t fg, uint16_t bg, const char *fmt, ...);
+//			printf_tb(2, i+1, TB_WHITE, TB_GREEN, strcmd);
+
 void print_tnode(branch_tree *curr, void *arg)
 {
 		unsigned int val = 0, len = 0;
@@ -595,7 +601,8 @@ void print_tnode(branch_tree *curr, void *arg)
 
 				PRINT_LEAF(dfl_prefix, one_branch, "", val_str); 
 				
-				printf("%s\n", one_branch);
+				printf_tb(2, 1, 8, 0, one_branch);
+				//printf("%s\n", one_branch);
 				sprintf(new_prefix, "%s", dfl_prefix);
 				x_offset = 4;
 				free(one_branch);
