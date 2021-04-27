@@ -21,13 +21,11 @@
 
 int main()
 {
-	int res;
-	int count = 0;
 	unsigned int depth = MAX_LIST_SIZE;
 
-	ll_node_A *a_item, tmp_item;
-	
-	list_head *ll_node = NULL;
+	//ll_node_A *a_item, tmp_item;
+	//list_head *new_item = NULL;
+	//list_head *ll_node = NULL;
 	branch_tree *root = NULL; 
 	branch_tree *node = NULL; 
 	branch_tree *parent = NULL; 
@@ -37,7 +35,7 @@ int main()
 	head_int->next = NULL;
 	head_int->prev = NULL;
 
-	list_head *new_item = NULL;
+
 
 	int i;
 	#if 0
@@ -79,18 +77,15 @@ int main()
 	/*
 		BUILD TREE
 	*/
-	unsigned int A = 2;
-	//init_troot(&root, (void *)(&A));
+	unsigned int A = (rand() % depth);
 	init_troot(&root, (void *)(&A));
-/*
+
 	for (i = 0; i < depth; i++)
 	{
 		A = (rand() % depth);
 		init_tnode(root, (void *)(&A));
 	}
-*/
-	A = 4;
-	init_tnode(root, (void *)(&A));
+
 	#if 0
 	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
 	init_root_tree(&root, (void *)&tmp_item.val);
@@ -104,7 +99,6 @@ int main()
 		count++;
 	}
 	#endif
-	unsigned int key;
 	search_tnode(root, 13, &node, &parent);
 	if (node)	
 		PRINT_TNODE_DBG(node);
@@ -124,9 +118,9 @@ int main()
 		printf("depth 2: %d\n", depth);
 		print_tree(root, depth);
 
-		destroy_tree(root, depth);
 	}	
 
+	destroy_tree(root, depth);
 	free(head_int);
 
 

@@ -1,0 +1,215 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	Makefile	/^CC=gcc$/;"	m
+CELL	src/include/termbox.c	29;"	d	file:
+CFLAGS	Makefile	/^CFLAGS=-Wall -g$/;"	m
+ENOUGH_DATA_FOR_PARSING	src/include/termbox.c	630;"	d	file:
+IS_CURSOR_HIDDEN	src/include/termbox.c	30;"	d	file:
+LAST_ATTR_INIT	src/include/termbox.c	500;"	d	file:
+LAST_COORD_INIT	src/include/termbox.c	31;"	d	file:
+LDLIBS	Makefile	/^LDLIBS=$/;"	m
+SO_IMPORT	src/include/termbox.h	7;"	d
+SO_IMPORT	src/include/termbox.h	9;"	d
+TB_BLACK	src/include/termbox.h	113;"	d
+TB_BLUE	src/include/termbox.h	117;"	d
+TB_BOLD	src/include/termbox.h	127;"	d
+TB_CYAN	src/include/termbox.h	119;"	d
+TB_DEFAULT	src/include/termbox.h	112;"	d
+TB_EFAILED_TO_OPEN_TTY	src/include/termbox.h	171;"	d
+TB_EOF	src/include/termbox.h	313;"	d
+TB_EPIPE_TRAP_ERROR	src/include/termbox.h	172;"	d
+TB_EUNSUPPORTED_TERMINAL	src/include/termbox.h	170;"	d
+TB_EVENT_KEY	src/include/termbox.h	143;"	d
+TB_EVENT_MOUSE	src/include/termbox.h	145;"	d
+TB_EVENT_RESIZE	src/include/termbox.h	144;"	d
+TB_GREEN	src/include/termbox.h	115;"	d
+TB_HIDE_CURSOR	src/include/termbox.h	202;"	d
+TB_INPUT_ALT	src/include/termbox.h	233;"	d
+TB_INPUT_CURRENT	src/include/termbox.h	231;"	d
+TB_INPUT_ESC	src/include/termbox.h	232;"	d
+TB_INPUT_MOUSE	src/include/termbox.h	234;"	d
+TB_KEY_ARROW_DOWN	spot.c	42;"	d	file:
+TB_KEY_ARROW_DOWN	src/include/termbox.h	40;"	d
+TB_KEY_ARROW_LEFT	spot.c	43;"	d	file:
+TB_KEY_ARROW_LEFT	src/include/termbox.h	41;"	d
+TB_KEY_ARROW_RIGHT	spot.c	44;"	d	file:
+TB_KEY_ARROW_RIGHT	src/include/termbox.h	42;"	d
+TB_KEY_ARROW_UP	spot.c	41;"	d	file:
+TB_KEY_ARROW_UP	src/include/termbox.h	39;"	d
+TB_KEY_BACKSPACE	src/include/termbox.h	60;"	d
+TB_KEY_BACKSPACE2	src/include/termbox.h	94;"	d
+TB_KEY_CTRL_2	src/include/termbox.h	52;"	d
+TB_KEY_CTRL_3	src/include/termbox.h	84;"	d
+TB_KEY_CTRL_4	src/include/termbox.h	85;"	d
+TB_KEY_CTRL_5	src/include/termbox.h	87;"	d
+TB_KEY_CTRL_6	src/include/termbox.h	89;"	d
+TB_KEY_CTRL_7	src/include/termbox.h	90;"	d
+TB_KEY_CTRL_8	src/include/termbox.h	95;"	d
+TB_KEY_CTRL_A	src/include/termbox.h	53;"	d
+TB_KEY_CTRL_B	src/include/termbox.h	54;"	d
+TB_KEY_CTRL_BACKSLASH	src/include/termbox.h	86;"	d
+TB_KEY_CTRL_C	src/include/termbox.h	55;"	d
+TB_KEY_CTRL_D	src/include/termbox.h	56;"	d
+TB_KEY_CTRL_E	src/include/termbox.h	57;"	d
+TB_KEY_CTRL_F	src/include/termbox.h	58;"	d
+TB_KEY_CTRL_G	src/include/termbox.h	59;"	d
+TB_KEY_CTRL_H	src/include/termbox.h	61;"	d
+TB_KEY_CTRL_I	src/include/termbox.h	63;"	d
+TB_KEY_CTRL_J	src/include/termbox.h	64;"	d
+TB_KEY_CTRL_K	src/include/termbox.h	65;"	d
+TB_KEY_CTRL_L	src/include/termbox.h	66;"	d
+TB_KEY_CTRL_LSQ_BRACKET	src/include/termbox.h	83;"	d
+TB_KEY_CTRL_M	src/include/termbox.h	68;"	d
+TB_KEY_CTRL_N	src/include/termbox.h	69;"	d
+TB_KEY_CTRL_O	src/include/termbox.h	70;"	d
+TB_KEY_CTRL_P	src/include/termbox.h	71;"	d
+TB_KEY_CTRL_Q	src/include/termbox.h	72;"	d
+TB_KEY_CTRL_R	src/include/termbox.h	73;"	d
+TB_KEY_CTRL_RSQ_BRACKET	src/include/termbox.h	88;"	d
+TB_KEY_CTRL_S	src/include/termbox.h	74;"	d
+TB_KEY_CTRL_SLASH	src/include/termbox.h	91;"	d
+TB_KEY_CTRL_T	src/include/termbox.h	75;"	d
+TB_KEY_CTRL_TILDE	src/include/termbox.h	51;"	d
+TB_KEY_CTRL_U	src/include/termbox.h	76;"	d
+TB_KEY_CTRL_UNDERSCORE	src/include/termbox.h	92;"	d
+TB_KEY_CTRL_V	src/include/termbox.h	77;"	d
+TB_KEY_CTRL_W	src/include/termbox.h	78;"	d
+TB_KEY_CTRL_X	src/include/termbox.h	79;"	d
+TB_KEY_CTRL_Y	src/include/termbox.h	80;"	d
+TB_KEY_CTRL_Z	src/include/termbox.h	81;"	d
+TB_KEY_DELETE	src/include/termbox.h	34;"	d
+TB_KEY_END	src/include/termbox.h	36;"	d
+TB_KEY_ENTER	spot.c	46;"	d	file:
+TB_KEY_ENTER	src/include/termbox.h	67;"	d
+TB_KEY_ESC	src/include/termbox.h	82;"	d
+TB_KEY_F1	src/include/termbox.h	21;"	d
+TB_KEY_F10	src/include/termbox.h	30;"	d
+TB_KEY_F11	src/include/termbox.h	31;"	d
+TB_KEY_F12	src/include/termbox.h	32;"	d
+TB_KEY_F2	src/include/termbox.h	22;"	d
+TB_KEY_F3	src/include/termbox.h	23;"	d
+TB_KEY_F4	src/include/termbox.h	24;"	d
+TB_KEY_F5	src/include/termbox.h	25;"	d
+TB_KEY_F6	src/include/termbox.h	26;"	d
+TB_KEY_F7	src/include/termbox.h	27;"	d
+TB_KEY_F8	src/include/termbox.h	28;"	d
+TB_KEY_F9	src/include/termbox.h	29;"	d
+TB_KEY_HOME	src/include/termbox.h	35;"	d
+TB_KEY_INSERT	src/include/termbox.h	33;"	d
+TB_KEY_MOUSE_LEFT	src/include/termbox.h	43;"	d
+TB_KEY_MOUSE_MIDDLE	src/include/termbox.h	45;"	d
+TB_KEY_MOUSE_RELEASE	src/include/termbox.h	46;"	d
+TB_KEY_MOUSE_RIGHT	src/include/termbox.h	44;"	d
+TB_KEY_MOUSE_WHEEL_DOWN	src/include/termbox.h	48;"	d
+TB_KEY_MOUSE_WHEEL_UP	src/include/termbox.h	47;"	d
+TB_KEY_PGDN	src/include/termbox.h	38;"	d
+TB_KEY_PGUP	src/include/termbox.h	37;"	d
+TB_KEY_SPACE	src/include/termbox.h	93;"	d
+TB_KEY_TAB	src/include/termbox.h	62;"	d
+TB_MAGENTA	src/include/termbox.h	118;"	d
+TB_MOD_ALT	src/include/termbox.h	108;"	d
+TB_MOD_MOTION	src/include/termbox.h	109;"	d
+TB_OUTPUT_216	src/include/termbox.h	259;"	d
+TB_OUTPUT_256	src/include/termbox.h	258;"	d
+TB_OUTPUT_CURRENT	src/include/termbox.h	256;"	d
+TB_OUTPUT_GRAYSCALE	src/include/termbox.h	260;"	d
+TB_OUTPUT_NORMAL	src/include/termbox.h	257;"	d
+TB_RED	src/include/termbox.h	114;"	d
+TB_REVERSE	src/include/termbox.h	129;"	d
+TB_UNDERLINE	src/include/termbox.h	128;"	d
+TB_WHITE	src/include/termbox.h	120;"	d
+TB_YELLOW	src/include/termbox.h	116;"	d
+WRITE_INT	src/include/termbox.c	372;"	d	file:
+WRITE_LITERAL	src/include/termbox.c	371;"	d	file:
+_tb_frame_	spot.c	/^typedef struct _tb_frame_ {$/;"	s	file:
+back_buffer	src/include/termbox.c	/^static struct cellbuf back_buffer;$/;"	v	typeref:struct:cellbuf	file:
+background	src/include/termbox.c	/^static uint16_t background = TB_DEFAULT;$/;"	v	file:
+bg	src/include/termbox.h	/^	uint16_t bg;$/;"	m	struct:tb_cell
+buffer_size_change_request	src/include/termbox.c	/^static volatile int buffer_size_change_request;$/;"	v	file:
+cellbuf	src/include/termbox.c	/^struct cellbuf {$/;"	s	file:
+cellbuf_clear	src/include/termbox.c	/^static void cellbuf_clear(struct cellbuf *buf)$/;"	f	file:
+cellbuf_free	src/include/termbox.c	/^static void cellbuf_free(struct cellbuf *buf)$/;"	f	file:
+cellbuf_init	src/include/termbox.c	/^static void cellbuf_init(struct cellbuf *buf, int width, int height)$/;"	f	file:
+cellbuf_resize	src/include/termbox.c	/^static void cellbuf_resize(struct cellbuf *buf, int width, int height)$/;"	f	file:
+cells	src/include/termbox.c	/^	struct tb_cell *cells;$/;"	m	struct:cellbuf	typeref:struct:cellbuf::tb_cell	file:
+ch	src/include/termbox.h	/^	uint32_t ch; \/* unicode character *\/$/;"	m	struct:tb_event
+ch	src/include/termbox.h	/^	uint32_t ch;$/;"	m	struct:tb_cell
+convertnum	src/include/termbox.c	/^static int convertnum(uint32_t num, char* buf) {$/;"	f	file:
+cursor_x	src/include/termbox.c	/^static int cursor_x = -1;$/;"	v	file:
+cursor_y	src/include/termbox.c	/^static int cursor_y = -1;$/;"	v	file:
+draw_cmd_list	spot.c	/^draw_cmd_list(tb_frame *fr, uint32_t key, uint32_t *curr)$/;"	f
+draw_frame	spot.c	/^draw_frame(tb_frame *fr)$/;"	f
+fg	src/include/termbox.h	/^	uint16_t fg;$/;"	m	struct:tb_cell
+foreground	src/include/termbox.c	/^static uint16_t foreground = TB_DEFAULT;$/;"	v	file:
+frName	spot.c	/^	char frName[100];$/;"	m	struct:_tb_frame_	file:
+frPid	spot.c	/^	unsigned int frPid;$/;"	m	struct:_tb_frame_	file:
+front_buffer	src/include/termbox.c	/^static struct cellbuf front_buffer;$/;"	v	typeref:struct:cellbuf	file:
+get_term_size	src/include/termbox.c	/^static void get_term_size(int *w, int *h)$/;"	f	file:
+h	src/include/termbox.h	/^	int32_t h;$/;"	m	struct:tb_event
+height	src/include/termbox.c	/^	int height;$/;"	m	struct:cellbuf	file:
+inout	src/include/termbox.c	/^static int inout;$/;"	v	file:
+input_buffer	src/include/termbox.c	/^static struct bytebuffer input_buffer;$/;"	v	typeref:struct:bytebuffer	file:
+inputmode	src/include/termbox.c	/^static int inputmode = TB_INPUT_ESC;$/;"	v	file:
+key	src/include/termbox.h	/^	uint16_t key; \/* one of the TB_KEY_* constants *\/$/;"	m	struct:tb_event
+lastx	src/include/termbox.c	/^static int lastx = LAST_COORD_INIT;$/;"	v	file:
+lasty	src/include/termbox.c	/^static int lasty = LAST_COORD_INIT;$/;"	v	file:
+lud	spot.c	/^	unsigned int lud; \/\/ left up corner (draw begin here)$/;"	m	struct:_tb_frame_	file:
+main	spot.c	/^int main(int argc, char **argv)$/;"	f
+maxX	spot.c	/^	unsigned int maxX;$/;"	m	struct:_tb_frame_	file:
+maxY	spot.c	/^	unsigned int maxY;$/;"	m	struct:_tb_frame_	file:
+minX	spot.c	/^	unsigned int minX; $/;"	m	struct:_tb_frame_	file:
+minY	spot.c	/^	unsigned int minY;$/;"	m	struct:_tb_frame_	file:
+mod	src/include/termbox.h	/^	uint8_t mod; \/* modifiers to either 'key' or 'ch' below *\/$/;"	m	struct:tb_event
+orig_tios	src/include/termbox.c	/^static struct termios orig_tios;$/;"	v	typeref:struct:termios	file:
+output_buffer	src/include/termbox.c	/^static struct bytebuffer output_buffer;$/;"	v	typeref:struct:bytebuffer	file:
+outputmode	src/include/termbox.c	/^static int outputmode = TB_OUTPUT_NORMAL;$/;"	v	file:
+print_tb	spot.c	/^void print_tb(const char *str, int x, int y, uint16_t fg, uint16_t bg)$/;"	f
+printf_tb	spot.c	/^void printf_tb(int x, int y, uint16_t fg, uint16_t bg, const char *fmt, ...)$/;"	f
+read_up_to	src/include/termbox.c	/^static int read_up_to(int n) {$/;"	f	file:
+send_attr	src/include/termbox.c	/^static void send_attr(uint16_t fg, uint16_t bg)$/;"	f	file:
+send_char	src/include/termbox.c	/^static void send_char(int x, int y, uint32_t c)$/;"	f	file:
+send_clear	src/include/termbox.c	/^static void send_clear(void)$/;"	f	file:
+sigwinch_handler	src/include/termbox.c	/^static void sigwinch_handler(int xxx)$/;"	f	file:
+tb_blit	src/include/termbox.c	/^void tb_blit(int x, int y, int w, int h, const struct tb_cell *cells)$/;"	f
+tb_cell	src/include/termbox.h	/^struct tb_cell {$/;"	s
+tb_cell_buffer	src/include/termbox.c	/^struct tb_cell *tb_cell_buffer(void)$/;"	f
+tb_change_cell	src/include/termbox.c	/^void tb_change_cell(int x, int y, uint32_t ch, uint16_t fg, uint16_t bg)$/;"	f
+tb_clear	src/include/termbox.c	/^void tb_clear(void)$/;"	f
+tb_event	src/include/termbox.h	/^struct tb_event {$/;"	s
+tb_frame	spot.c	/^} tb_frame;$/;"	t	typeref:struct:_tb_frame_	file:
+tb_height	src/include/termbox.c	/^int tb_height(void)$/;"	f
+tb_init	src/include/termbox.c	/^int tb_init(void)$/;"	f
+tb_init_fd	src/include/termbox.c	/^int tb_init_fd(int inout_)$/;"	f
+tb_init_file	src/include/termbox.c	/^int tb_init_file(const char* name){$/;"	f
+tb_peek_event	src/include/termbox.c	/^int tb_peek_event(struct tb_event *event, int timeout)$/;"	f
+tb_poll_event	src/include/termbox.c	/^int tb_poll_event(struct tb_event *event)$/;"	f
+tb_present	src/include/termbox.c	/^void tb_present(void)$/;"	f
+tb_put_cell	src/include/termbox.c	/^void tb_put_cell(int x, int y, const struct tb_cell *cell)$/;"	f
+tb_select_input_mode	src/include/termbox.c	/^int tb_select_input_mode(int mode)$/;"	f
+tb_select_output_mode	src/include/termbox.c	/^int tb_select_output_mode(int mode)$/;"	f
+tb_set_clear_attributes	src/include/termbox.c	/^void tb_set_clear_attributes(uint16_t fg, uint16_t bg)$/;"	f
+tb_set_cursor	src/include/termbox.c	/^void tb_set_cursor(int cx, int cy)$/;"	f
+tb_shutdown	src/include/termbox.c	/^void tb_shutdown(void)$/;"	f
+tb_utf8_char_length	src/include/utf8.c	/^int tb_utf8_char_length(char c)$/;"	f
+tb_utf8_char_to_unicode	src/include/utf8.c	/^int tb_utf8_char_to_unicode(uint32_t *out, const char *c)$/;"	f
+tb_utf8_unicode_to_char	src/include/utf8.c	/^int tb_utf8_unicode_to_char(char *out, uint32_t c)$/;"	f
+tb_width	src/include/termbox.c	/^int tb_width(void)$/;"	f
+termh	src/include/termbox.c	/^static int termh = -1;$/;"	v	file:
+termw	src/include/termbox.c	/^static int termw = -1;$/;"	v	file:
+type	src/include/termbox.h	/^	uint8_t type;$/;"	m	struct:tb_event
+update_size	src/include/termbox.c	/^static void update_size(void)$/;"	f	file:
+update_term_size	src/include/termbox.c	/^static void update_term_size(void)$/;"	f	file:
+utf8_length	src/include/utf8.c	/^static const unsigned char utf8_length[256] = {$/;"	v	file:
+utf8_mask	src/include/utf8.c	/^static const unsigned char utf8_mask[6] = {$/;"	v	file:
+w	src/include/termbox.h	/^	int32_t w;$/;"	m	struct:tb_event
+wait_fill_event	src/include/termbox.c	/^static int wait_fill_event(struct tb_event *event, struct timeval *timeout)$/;"	f	file:
+width	src/include/termbox.c	/^	int width;$/;"	m	struct:cellbuf	file:
+winch_fds	src/include/termbox.c	/^static int winch_fds[2];$/;"	v	file:
+write_cursor	src/include/termbox.c	/^static void write_cursor(int x, int y) {$/;"	f	file:
+write_sgr	src/include/termbox.c	/^static void write_sgr(uint16_t fg, uint16_t bg) {$/;"	f	file:
+x	src/include/termbox.h	/^	int32_t x;$/;"	m	struct:tb_event
+y	src/include/termbox.h	/^	int32_t y;$/;"	m	struct:tb_event
