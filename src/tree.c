@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "tree.h"
+#include "../include/tree.h"
 #include <assert.h>
 #include <stdbool.h>
 
