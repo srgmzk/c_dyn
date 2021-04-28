@@ -96,29 +96,14 @@ void init_tnode(branch_tree *root, void *val)
 	int res = 0;
 	branch_tree *branch;
 	tree_node *Tree = calloc(1, sizeof(tree_node));
-
-	if (pthread_mutex_init(&(Tree->branch.t_lock), NULL)!=NULL)
-	{
-		free(Tree);
-		return;
-	}
-
-	pthread_mutex_lock(&(Tree->branch.t_lock));
-	pthread_mutex_lock(&(root->t_lock));
 	branch = &(Tree->branch);
 	Tree->val = *new_val;	
 	if (add_tnode( root, branch ))
 	{
 //		printf("Double detected. Drop val %d\n", Tree->val);
-
-		pthread_mutex_unlock(&(root->t_lock));
-		pthread_mutex_unlock(&(branch->t_lock));
 		free(Tree);  
 		return;
 	}
-
-	pthread_mutex_unlock(&(root->t_lock));
-	pthread_mutex_unlock(&(branch->t_lock));
 
 }
 
@@ -128,13 +113,10 @@ void init_troot(branch_tree **root, void *val)
 	tree_node *Tree = calloc(1, sizeof(tree_node));
 	*root = &(Tree->branch);
 
-	pthread_mutex_init(&((*root)->t_lock), NULL);
 
 	Tree->val = *new_val;	
 	
-	pthread_mutex_lock(&(*root)->t_lock);
 	add_tnode(*root, *root);
-	pthread_mutex_unlock(&(*root)->t_lock);
 }
 
 int add_tnode(branch_tree *root, branch_tree *new)
@@ -194,27 +176,18 @@ void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tr
 	*parent = root;
 	while ( *node )
 	{
-		pthread_mutex_lock(&((*node)->t_lock));
 		if (GET_NODE_KEY(*node) > key )
 		{
 			*parent = *node;
-			pthread_mutex_unlock(&((*node)->t_lock));
-			pthread_mutex_lock(&((TO_LEFT(*node))->t_lock));
 			*node = TO_LEFT(*node);
-			pthread_mutex_unlock(&((*node)->t_lock));
 		}
 		else if (GET_NODE_KEY(*node) < key )
 		{
 			*parent = *node;
-			pthread_mutex_unlock(&((*node)->t_lock));
-
-			pthread_mutex_lock(&((TO_RIGHT(*node))->t_lock));
 			*node = TO_RIGHT(*node);
-			pthread_mutex_unlock(&((*node)->t_lock));
 		}
 		else 
 		{
-			pthread_mutex_unlock(&((*node)->t_lock));
 			return;
 		}
 	}
