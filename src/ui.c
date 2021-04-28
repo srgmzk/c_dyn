@@ -89,8 +89,10 @@ void draw_cmd_list(tb_frame *fr, uint32_t key, uint32_t *curr)
 			printf_tb(2, i+1, TB_GREEN, TB_DEFAULT, strcmd);
 		}
 	}
-	
-	 
 }
 
+void draw_out_buff(tb_frame *fr, char *buff)
+{
+	printf_tb(2, 1, TB_GREEN, TB_DEFAULT, buff);
+}
 

@@ -23,6 +23,7 @@
 #include <stddef.h>
 #include <math.h>
 
+
 #define TO_LEFT(_node_) ((_node_)->left)
 
 #define TO_RIGHT(_node_) ((_node_)->right)
@@ -141,6 +142,7 @@
 
 typedef struct branch_tree
 {
+	pthread_mutex_t t_lock;
 	struct branch_tree *left;
 	struct branch_tree *right;
 

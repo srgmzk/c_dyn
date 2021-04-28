@@ -19,11 +19,72 @@
 #include "include/ll.h"
 #include "include/tree.h"
 #include "include/ui.h"
+#include <pthread.h>
 #include <assert.h>
+#include <errno.h>
+
+
+
+pthread_t build_tree_thread;
+pthread_t delete_tree_thread;
+
+branch_tree *root;
+static pthread_mutex_t root_mtx = PTHREAD_MUTEX_INITIALIZER;
+
+void build_tree(uint32_t *loop)
+{
+	uint32_t i = 0;
+	uint32_t size = MAX_LIST_SIZE;
+	uint32_t x;// = (rand() % size);
+	int res;
+
+	for (i = 0; i < loop; i++)
+
+	{
+		x = (rand() % MAX_LIST_SIZE)+1;
+		res = pthread_mutex_lock(&root_mtx);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+		init_tnode(root, (void *)(&x));
+		res = pthread_mutex_unlock(&root_mtx);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+		sleep(1);
+		
+	}
+
+	printf("build tree is over \n");
+}
+
+
+void delete_tree(uint32_t *loop)
+{
+	uint32_t x = 0;
+	int res = 0;
+	int i = 0;
+	for (i = 0; i < loop; i++)
+	{
+		x = (rand()%MAX_LIST_SIZE) + 1;
+		res = pthread_mutex_lock(&root_mtx);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+		root = delete_tnode(root, x);
+
+		res = pthread_mutex_unlock(&root_mtx);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+		sleep(1);
+	}
+	printf("delete tree is over \n");
+}
 
 int main()
 {
-#if 1
+#if 0
+
 	int ret;
 	struct tb_event ev;
 	uint32_t curr_cmd = 1;
@@ -39,13 +100,12 @@ int main()
 
 	assert(w > 6);
 	assert(h > 6);
-
 	tb_frame ctrl_frame = {.minX = 0, .maxX = 49, .minY = 0, .maxY = h-2};
 	tb_frame out_frame = {.minX = 50, .maxX = (w-2), .minY = 0, .maxY = h-2};
+
 	sprintf(ctrl_frame.frName, "%s", "main");
 	sprintf(out_frame.frName, "%s", "out");
 
-	tb_select_input_mode(TB_INPUT_ESC | TB_INPUT_MOUSE);
 	tb_clear();
 	
 	draw_frame(&ctrl_frame);
@@ -61,7 +121,8 @@ int main()
 		case TB_EVENT_KEY:
 			if (ev.key == TB_KEY_ESC || ev.key == TB_KEY_CTRL_C )
 			{
-				goto out;
+				tb_shutdown();
+				return 0;
 			}
 			if (ev.key == TB_KEY_ARROW_DOWN)
 			{
@@ -83,9 +144,9 @@ int main()
 
 		w = tb_width();
 		h = tb_height();
-
 		ctrl_frame.maxY = out_frame.maxY = h-2;
 		out_frame.maxX = w-2;
+
 		sprintf(ctrl_frame.frName, "%s", "main");
 		sprintf(out_frame.frName, "%s", "out");
 
@@ -101,12 +162,14 @@ int main()
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-	unsigned int depth = MAX_LIST_SIZE;
+
+
+	unsigned int tsize = MAX_LIST_SIZE;
 
 	//ll_node_A *a_item, tmp_item;
 	//list_head *new_item = NULL;
 	//list_head *ll_node = NULL;
-	branch_tree *root = NULL; 
+	//branch_tree *root = NULL; 
 	branch_tree *node = NULL; 
 	branch_tree *parent = NULL; 
 
@@ -116,7 +179,6 @@ int main()
 	head_int->prev = NULL;
 
 
-	int i;
 	#if 0
 	for (i = 0; i < depth; i++)
 	{
@@ -153,8 +215,41 @@ int main()
 	printf("**************************\n");
 	#endif
 
-	//	BUILD TREE //
+	uint32_t x = (rand() % tsize);
+	int ret = pthread_mutex_lock(&root_mtx);
+	if (ret != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 	
+	init_troot(&root, (void *)(&x));
+
+	ret = pthread_mutex_unlock(&root_mtx);
+	if (ret != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+
+
+
+	//	BUILD TREE //
+	uint32_t loop = 100;
+	ret = pthread_create(&build_tree_thread, NULL, build_tree, &loop);
+	if (ret != 0)
+	{
+		if (ret != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+		return -1;
+	}
+
+
+	ret = pthread_create(&delete_tree_thread, NULL, delete_tree, &loop);
+	if (ret != 0)
+	{
+		if (ret != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+		return -1;
+	}
+
+
+	#if 0
 	unsigned int A = (rand() % depth);
 	init_troot(&root, (void *)(&A));
 
@@ -163,6 +258,7 @@ int main()
 		A = (rand() % depth);
 		init_tnode(root, (void *)(&A));
 	}
+	#endif
 
 	#if 0
 	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
@@ -177,13 +273,39 @@ int main()
 		count++;
 	}
 	#endif
-	search_tnode(root, 13, &node, &parent);
-	if (node)	
-		PRINT_TNODE_DBG(node);
-	
-	print_tree(root, depth);
 
+//	void *res;
+//	res = pthread_join(build_tree_thread, &res);
+//	search_tnode(root, 13, &node, &parent);
+
+
+//	if (node)	
+//		PRINT_TNODE_DBG(node);
 	
+	int res = 0;
+	int i = 0;
+
+
+	for (i = 0; i < loop; i++)
+	{
+				
+		sleep(1);
+		res = pthread_mutex_lock(&root_mtx);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+		tsize = get_num_nodes(root);
+		print_tree(root, tsize);
+
+		res = pthread_mutex_unlock(&root_mtx);
+		printf("Current tree size: %d\n", tsize);
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+		printf("\x1b[H\x1b[J");
+	}
+
+	/*	
 	depth = get_num_nodes(root);
 	printf("depth 1: %d\n", depth);
 
@@ -197,15 +319,26 @@ int main()
 		print_tree(root, depth);
 
 	}	
+	*/
+	void *r;
+	res = pthread_join(build_tree_thread, &r);
+	res = pthread_join(delete_tree_thread, &r);
 
-	destroy_tree(root, depth);
+	res = pthread_mutex_lock(&root_mtx);
+	if (res != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+	tsize = get_num_nodes(root);
+
+	res = pthread_mutex_unlock(&root_mtx);
+	printf("Current tree size: %d\n", tsize);
+	if (res != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+
+	destroy_tree(root, tsize);
+
 	free(head_int);
-
-
-out:
-	tb_shutdown();
-
-
 	return 0;
 }
 	

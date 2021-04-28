@@ -24,8 +24,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
-#define MAX_LIST_SIZE 10
+#define MAX_LIST_SIZE 50
 
 
 #define offsetof(type, member)\

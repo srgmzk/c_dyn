@@ -7,36 +7,36 @@
 CC	Makefile	/^CC=gcc$/;"	m
 CELL	ui/src/include/termbox.c	29;"	d	file:
 CFLAGS	Makefile	/^CFLAGS=-Wall -g$/;"	m
-CHANGE_NODE	include/tree.h	70;"	d
+CHANGE_NODE	include/tree.h	71;"	d
 ENOUGH_DATA_FOR_PARSING	ui/src/include/termbox.c	630;"	d	file:
-GET_NODE_KEY	include/tree.h	98;"	d
-GET_NODE_OFFSET	include/tree.h	120;"	d
-HAVE_TWINS	include/tree.h	66;"	d
-INIT_HEAD	include/ll.h	43;"	d
+GET_NODE_KEY	include/tree.h	99;"	d
+GET_NODE_OFFSET	include/tree.h	121;"	d
+HAVE_TWINS	include/tree.h	67;"	d
+INIT_HEAD	include/ll.h	44;"	d
 IS_CURSOR_HIDDEN	ui/src/include/termbox.c	30;"	d	file:
-IS_LEAF	include/tree.h	64;"	d
-IS_LEFT	include/tree.h	78;"	d
-IS_NODE	include/tree.h	68;"	d
-IS_PARENT	include/tree.h	112;"	d
-IS_RIGHT	include/tree.h	75;"	d
+IS_LEAF	include/tree.h	65;"	d
+IS_LEFT	include/tree.h	79;"	d
+IS_NODE	include/tree.h	69;"	d
+IS_PARENT	include/tree.h	113;"	d
+IS_RIGHT	include/tree.h	76;"	d
 LAST_ATTR_INIT	ui/src/include/termbox.c	500;"	d	file:
 LAST_COORD_INIT	ui/src/include/termbox.c	31;"	d	file:
 LDLIBS	Makefile	/^LDLIBS=$/;"	m
-LEFT_TRAV	include/tree.h	81;"	d
+LEFT_TRAV	include/tree.h	82;"	d
 LL_H	include/ll.h	21;"	d
-MAX_LIST_SIZE	include/ll.h	28;"	d
-MAX_PREFIX_SIZE	src/tree.c	26;"	d	file:
-NEXT_FROM_LEFT	include/tree.h	30;"	d
-NEXT_FROM_RIGHT	include/tree.h	43;"	d
-NODE_VAL	include/tree.h	103;"	d
-PRINT_LEAF	include/tree.h	138;"	d
-PRINT_OFFSET	include/tree.h	131;"	d
-PRINT_TNODE_DBG	include/tree.h	124;"	d
-RIGHT_TRAV	include/tree.h	89;"	d
+MAX_LIST_SIZE	include/ll.h	29;"	d
+MAX_PREFIX_SIZE	src/tree.c	23;"	d	file:
+NEXT_FROM_LEFT	include/tree.h	31;"	d
+NEXT_FROM_RIGHT	include/tree.h	44;"	d
+NODE_VAL	include/tree.h	104;"	d
+PRINT_LEAF	include/tree.h	139;"	d
+PRINT_OFFSET	include/tree.h	132;"	d
+PRINT_TNODE_DBG	include/tree.h	125;"	d
+RIGHT_TRAV	include/tree.h	90;"	d
 SO_IMPORT	ui/src/include/termbox.h	7;"	d
 SO_IMPORT	ui/src/include/termbox.h	9;"	d
 SRC	Makefile	/^SRC=src\/$/;"	m
-STACK_IS_NULL	include/tree.h	115;"	d
+STACK_IS_NULL	include/tree.h	116;"	d
 TB_BLACK	ui/src/include/termbox.h	113;"	d
 TB_BLUE	ui/src/include/termbox.h	117;"	d
 TB_BOLD	ui/src/include/termbox.h	127;"	d
@@ -146,14 +146,14 @@ TB_REVERSE	ui/src/include/termbox.h	129;"	d
 TB_UNDERLINE	ui/src/include/termbox.h	128;"	d
 TB_WHITE	ui/src/include/termbox.h	120;"	d
 TB_YELLOW	ui/src/include/termbox.h	116;"	d
-TO_LEFT	include/tree.h	26;"	d
-TO_RIGHT	include/tree.h	28;"	d
+TO_LEFT	include/tree.h	27;"	d
+TO_RIGHT	include/tree.h	29;"	d
 TREE_H	include/tree.h	20;"	d
 WRITE_INT	ui/src/include/termbox.c	372;"	d	file:
 WRITE_LITERAL	ui/src/include/termbox.c	371;"	d	file:
 _UI_	include/ui.h	20;"	d
 _tb_frame_	include/ui.h	/^typedef struct _tb_frame_ {$/;"	s
-add_node	include/ll.h	61;"	d
+add_node	include/ll.h	62;"	d
 add_tnode	src/tree.c	/^int add_tnode(branch_tree *root, branch_tree *new)$/;"	f
 back_buffer	ui/src/include/termbox.c	/^static struct cellbuf back_buffer;$/;"	v	typeref:struct:cellbuf	file:
 background	ui/src/include/termbox.c	/^static uint16_t background = TB_DEFAULT;$/;"	v	file:
@@ -162,6 +162,8 @@ branch	include/tree.h	/^	branch_tree branch;$/;"	m	struct:tree_node
 branch_tree	include/tree.h	/^typedef struct branch_tree$/;"	s
 branch_tree	include/tree.h	/^} branch_tree;$/;"	t	typeref:struct:branch_tree
 buffer_size_change_request	ui/src/include/termbox.c	/^static volatile int buffer_size_change_request;$/;"	v	file:
+build_tree	main.c	/^void build_tree(uint32_t *loop)$/;"	f
+build_tree_thread	main.c	/^pthread_t build_tree_thread;$/;"	v
 cellbuf	ui/src/include/termbox.c	/^struct cellbuf {$/;"	s	file:
 cellbuf_clear	ui/src/include/termbox.c	/^static void cellbuf_clear(struct cellbuf *buf)$/;"	f	file:
 cellbuf_free	ui/src/include/termbox.c	/^static void cellbuf_free(struct cellbuf *buf)$/;"	f	file:
@@ -170,20 +172,23 @@ cellbuf_resize	ui/src/include/termbox.c	/^static void cellbuf_resize(struct cell
 cells	ui/src/include/termbox.c	/^	struct tb_cell *cells;$/;"	m	struct:cellbuf	typeref:struct:cellbuf::tb_cell	file:
 ch	ui/src/include/termbox.h	/^	uint32_t ch; \/* unicode character *\/$/;"	m	struct:tb_event
 ch	ui/src/include/termbox.h	/^	uint32_t ch;$/;"	m	struct:tb_cell
-container_of	include/ll.h	34;"	d
+container_of	include/ll.h	35;"	d
 convertnum	ui/src/include/termbox.c	/^static int convertnum(uint32_t num, char* buf) {$/;"	f	file:
 cursor_x	ui/src/include/termbox.c	/^static int cursor_x = -1;$/;"	v	file:
 cursor_y	ui/src/include/termbox.c	/^static int cursor_y = -1;$/;"	v	file:
 delete_tnode	src/tree.c	/^branch_tree *delete_tnode(branch_tree *root, unsigned int key)$/;"	f
+delete_tree	main.c	/^void delete_tree(uint32_t *loop)$/;"	f
+delete_tree_thread	main.c	/^pthread_t delete_tree_thread;$/;"	v
 depth	include/tree.h	/^	unsigned int depth;$/;"	m	struct:ptree_struct
 destroy_tnode	src/tree.c	/^void destroy_tnode(branch_tree *node, void *arg)$/;"	f
 destroy_tree	src/tree.c	/^void destroy_tree(branch_tree *root, unsigned depth)$/;"	f
 dfl_prefix	include/tree.h	/^ 	char *dfl_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(depth)\/2) * sizeof(char));$/;"	m	struct:ptree_struct
 draw_cmd_list	src/ui.c	/^void draw_cmd_list(tb_frame *fr, uint32_t key, uint32_t *curr)$/;"	f
 draw_frame	src/ui.c	/^void draw_frame(tb_frame *fr)$/;"	f
+draw_out_buff	src/ui.c	/^void draw_out_buff(tb_frame *fr, char *buff)$/;"	f
 fg	ui/src/include/termbox.h	/^	uint16_t fg;$/;"	m	struct:tb_cell
 fill_stack	src/tree.c	/^static void fill_stack(list_head **head, branch_tree **node )$/;"	f	file:
-for_each_entry	include/ll.h	40;"	d
+for_each_entry	include/ll.h	41;"	d
 foreground	ui/src/include/termbox.c	/^static uint16_t foreground = TB_DEFAULT;$/;"	v	file:
 frName	include/ui.h	/^	char frName[100];$/;"	m	struct:_tb_frame_
 frPid	include/ui.h	/^	unsigned int frPid;$/;"	m	struct:_tb_frame_
@@ -202,7 +207,7 @@ key	ui/src/include/termbox.h	/^	uint16_t key; \/* one of the TB_KEY_* constants 
 lastx	ui/src/include/termbox.c	/^static int lastx = LAST_COORD_INIT;$/;"	v	file:
 lasty	ui/src/include/termbox.c	/^static int lasty = LAST_COORD_INIT;$/;"	v	file:
 left	include/tree.h	/^	struct branch_tree *left;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
-list_entry	include/ll.h	37;"	d
+list_entry	include/ll.h	38;"	d
 list_head	include/ll.h	/^typedef struct list_head$/;"	s
 list_head	include/ll.h	/^} list_head, *list_ptr;$/;"	t	typeref:struct:list_head
 list_node	include/tree.h	/^	ll_node_tree *list_node;$/;"	m	struct:ptree_struct
@@ -226,7 +231,7 @@ new_prefix	include/tree.h	/^ 	char *new_prefix;\/\/ = malloc((MAX_PREFIX_SIZE(de
 next	include/ll.h	/^	struct list_head *next;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
 node	include/tree.h	/^	branch_tree *node; \/\/value of linked tree node (node with branches)$/;"	m	struct:ll_node_tree
 offset	include/tree.h	/^	unsigned int offset;$/;"	m	struct:ll_node_tree
-offsetof	include/ll.h	31;"	d
+offsetof	include/ll.h	32;"	d
 orig_tios	ui/src/include/termbox.c	/^static struct termios orig_tios;$/;"	v	typeref:struct:termios	file:
 output_buffer	ui/src/include/termbox.c	/^static struct bytebuffer output_buffer;$/;"	v	typeref:struct:bytebuffer	file:
 outputmode	ui/src/include/termbox.c	/^static int outputmode = TB_OUTPUT_NORMAL;$/;"	v	file:
@@ -250,11 +255,14 @@ remove_first	src/ll.c	/^int remove_first(list_head *head, ll_node_A *ret)$/;"	f
 remove_last	src/ll.c	/^int remove_last(list_head *head, ll_node_A *ret)$/;"	f
 right	include/tree.h	/^	struct branch_tree *right;$/;"	m	struct:branch_tree	typeref:struct:branch_tree::branch_tree
 root	include/tree.h	/^	branch_tree *root;$/;"	m	struct:ptree_struct
+root	main.c	/^branch_tree *root;$/;"	v
+root_mtx	main.c	/^static pthread_mutex_t root_mtx = PTHREAD_MUTEX_INITIALIZER;$/;"	v	file:
 search_tnode	src/tree.c	/^void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tree **parent)$/;"	f
 send_attr	ui/src/include/termbox.c	/^static void send_attr(uint16_t fg, uint16_t bg)$/;"	f	file:
 send_char	ui/src/include/termbox.c	/^static void send_char(int x, int y, uint32_t c)$/;"	f	file:
 send_clear	ui/src/include/termbox.c	/^static void send_clear(void)$/;"	f	file:
 sigwinch_handler	ui/src/include/termbox.c	/^static void sigwinch_handler(int xxx)$/;"	f	file:
+t_lock	include/tree.h	/^	pthread_mutex_t t_lock;$/;"	m	struct:branch_tree
 tb_blit	ui/src/include/termbox.c	/^void tb_blit(int x, int y, int w, int h, const struct tb_cell *cells)$/;"	f
 tb_cell	ui/src/include/termbox.h	/^struct tb_cell {$/;"	s
 tb_cell_buffer	ui/src/include/termbox.c	/^struct tb_cell *tb_cell_buffer(void)$/;"	f

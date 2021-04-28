@@ -8,7 +8,7 @@ SRC=src/
 LDLIBS=
 
 main: main.o
-	${CC} ${CFLAGS} main.o -o main -L. -I./include -lui -lll -ltree -lui ./ui/src/lib/libtermbox.a
+	${CC} ${CFLAGS} main.o -o main -L. -I./include -lui -lll -ltree -lui ./ui/src/lib/libtermbox.a -pthread
 
 main.o: main.c
 	${CC} ${CFLAGS} -c main.c -o main.o
