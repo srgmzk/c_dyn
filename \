@@ -24,7 +24,7 @@
 #include <errno.h>
 #include <limits.h>
 
-uint32_t loop = 1000;
+uint32_t loop = 100;
 
 
 typedef struct _t_stat_
@@ -32,7 +32,6 @@ typedef struct _t_stat_
 	uint32_t add_el;
 	uint32_t del_el;
 	uint32_t curr_size;
-	uint32_t loops;
 		
 } t_stat;
 
@@ -43,14 +42,13 @@ typedef struct _t_stat_
 pthread_t build_tree_thread;
 pthread_t stat_tree_thread;
 pthread_t delete_tree_thread;
-pthread_t print_tree_thread;
 
 branch_tree *root;
 
 static pthread_mutex_t root_mtx = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t vol_cond = PTHREAD_COND_INITIALIZER;
 
-void build_tree_t(t_stat *ts)
+void build_tree(t_stat *ts)
 {
 	uint32_t i = 0;
 	uint32_t x;
@@ -60,15 +58,25 @@ void build_tree_t(t_stat *ts)
 	for (;;)
 	{
 		sleep(0);
+//		sched_yield();
 		x = RAND_RANGE(loop);
+		res = pthread_mutex_lock(&(root->t_lock));
+
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
 		init_tnode(root, (void *)(&x));
 		ts->add_el++;
-		
+		res = pthread_mutex_unlock(&(root->t_lock));
+
+		if (res != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
 	}
 }
 
 
-void delete_tree_t(t_stat *ts)
+void delete_tree(t_stat *ts)
 {
 	uint32_t x = 0;
 	int res = 0;
@@ -76,28 +84,29 @@ void delete_tree_t(t_stat *ts)
 	pthread_detach(pthread_self());
 	for (;;)
 	{
-		sleep(0);		
+		sleep(0);
 		x = RAND_RANGE(loop);
-		if (GET_NODE_KEY(root) == x) // TODO: remove root 
-			continue;
-
-		res = pthread_mutex_lock(&(root->t_lock));
+		if (GET_NODE_KEY(root) == x) 
+		{
+			printf("del %d %d %p\n", i, loop, root);		
+			sleep(5);
+			break;
+		}
+		res = pthread_mutex_lock(&(root_mtx));
 		if (res != 0)
 			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 		root = delete_tnode(root, x);
 		ts->del_el++;
-
-		res = pthread_mutex_unlock(&(root->t_lock));
+		res = pthread_mutex_unlock(&(root_mtx));
 		if (res != 0)
 			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 	}
-
 		printf("delete tree is over \n");
 }
 
-void stat_tree_t(t_stat *ts)
+void stat_tree(t_stat *ts)
 {
 	int res = 0;
 	int i;
@@ -105,6 +114,7 @@ void stat_tree_t(t_stat *ts)
 	pthread_detach(pthread_self());
 	for (;;)
 	{
+		
 		res = pthread_mutex_lock(&(root->t_lock));
 		if (res != 0)
 			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
@@ -125,36 +135,6 @@ void stat_tree_t(t_stat *ts)
 }
 
 
-void print_tree_t(t_stat *ts)
-{
-	int ret = 0;
-	int i = 0;
-
-	uint32_t old_tsize = 0;
-	while (i < ts->loops && ts->curr_size < ts->loops/2)
-	{
-		i++;
-		printf("\x1b[H\x1b[J");
-		ret = pthread_mutex_lock(&(root->t_lock));
-		if (ret != 0)
-			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
-		
-		while (ts->curr_size == old_tsize) 
-		{
-			ret = pthread_cond_wait(&vol_cond, &(root->t_lock));
-		}
-		
-		print_tree(root);
-		old_tsize = ts->curr_size;
-		ret = pthread_mutex_unlock(&(root->t_lock));
-		if (ret != 0)
-			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
-		printf("loops: %d, size: %d (%d), add %d, del %d\n", 
-				i, ts->curr_size, (i+ts->curr_size), ts->add_el, ts->del_el );
-
-	}
-
-}
 
 
 
@@ -306,9 +286,10 @@ int main()
 		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 
-	ts.loops = loop;
 
-	ret = pthread_create(&build_tree_thread, NULL, build_tree_t, &ts);
+	//	BUILD TREE //
+
+	ret = pthread_create(&build_tree_thread, NULL, build_tree, &ts);
 	if (ret != 0)
 	{
 		if (ret != 0)
@@ -316,7 +297,7 @@ int main()
 		return -1;
 	}
 
-#if 0 
+#if 1 
 	ret = pthread_create(&delete_tree_thread, NULL, delete_tree, &ts);
 	if (ret != 0)
 	{
@@ -327,25 +308,25 @@ int main()
 #endif
 
 #if 1 
-	ret = pthread_create(&stat_tree_thread, NULL, stat_tree_t, &ts);
+	ret = pthread_create(&stat_tree_thread, NULL, stat_tree, &ts);
 	if (ret != 0)
 	{
 		if (ret != 0)
 			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 		return -1;
 	}
-#endif
 
-#if 1 
-	ret = pthread_create(&print_tree_thread, NULL, print_tree_t, &ts);
-	if (ret != 0)
+#endif
+	#if 0
+	unsigned int A = (rand() % depth);
+	init_troot(&root, (void *)(&A));
+
+	for (i = 0; i < depth; i++)
 	{
-		if (ret != 0)
-			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
-		return -1;
+		A = (rand() % depth);
+		init_tnode(root, (void *)(&A));
 	}
-#endif
-
+	#endif
 
 	#if 0
 	tmp_item = (*list_entry( *head_int->next, ll_node_A, ll_int ));
@@ -361,21 +342,74 @@ int main()
 	}
 	#endif
 
+//	void *res;
+//	res = pthread_join(build_tree_thread, &res);
+//	search_tnode(root, 13, &node, &parent);
 
+
+//	if (node)	
+//		PRINT_TNODE_DBG(node);
+	
+	int res = 0;
+	int i = 0;
+
+	uint32_t old_tsize = 0;
+	while (i < loop && ts.curr_size < loop)
+	{
+		i++;
+		printf("\x1b[H\x1b[J");
+		ret = pthread_mutex_lock(&(root->t_lock));
+		if (ret != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+		//printf("print %d %d %p\n", i, loop, root);		
+		
+		while (ts.curr_size == old_tsize) 
+		{
+			ret = pthread_cond_wait(&vol_cond, &(root->t_lock));
+			//ret = pthread_cond_wait(&vol_cond, &root_mtx);
+		}
+		
+		print_tree(root);
+		old_tsize = ts.curr_size;
+		//ret = pthread_mutex_unlock(&root_mtx);
+		ret = pthread_mutex_unlock(&(root->t_lock));
+		if (ret != 0)
+			printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+		printf("loops: %d, size: %d, add %d, del %d\n", i, ts.curr_size, ts.add_el, ts.del_el );
+
+
+	}
+
+	/*	
+	depth = get_num_nodes(root);
+	printf("depth 1: %d\n", depth);
+
+	root = delete_tnode(root, 2);
+
+	
+	if (root)
+	{
+		depth = get_num_nodes(root);
+		printf("depth 2: %d\n", depth);
+		print_tree(root, depth);
+
+	}	
+	*/
 	void *r;
-	ret = pthread_join(print_tree_thread, &r);
-	if (ret != 0)
-		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
-	ret = pthread_mutex_lock(&root_mtx);
-	if (ret != 0)
+//	res = pthread_join(build_tree_thread, &r);
+//	res = pthread_join(delete_tree_thread, &r);
+
+	res = pthread_mutex_lock(&root_mtx);
+	if (res != 0)
 		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 	ts.curr_size = get_num_nodes(root);
 
-	ret = pthread_mutex_unlock(&root_mtx);
-	if (ret != 0)
+	res = pthread_mutex_unlock(&root_mtx);
+	if (res != 0)
 		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
 
 	destroy_tree(root, ts.curr_size);
 

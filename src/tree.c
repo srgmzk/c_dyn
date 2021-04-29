@@ -19,7 +19,7 @@
 #include "../include/tree.h"
 #include <assert.h>
 #include <stdbool.h>
-
+#include <errno.h>
 #define MAX_PREFIX_SIZE(depth) ((depth)*4)
 
 /* private methods */
@@ -112,28 +112,28 @@ void init_troot(branch_tree **root, void *val)
 	int *new_val = (int *)(val);
 	tree_node *Tree = calloc(1, sizeof(tree_node));
 	*root = &(Tree->branch);
-
-
 	Tree->val = *new_val;	
-	
 	add_tnode(*root, *root);
 }
 
 int add_tnode(branch_tree *root, branch_tree *new)
 {
-	assert(root);
+	int res = pthread_mutex_lock(&root->t_lock);
+	if (res != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 	branch_tree *curr = root; 	
 	branch_tree *parent = root;
 	
 	tree_node *curr_node =	list_entry( *curr, tree_node, branch );
 	tree_node *new_node  =	list_entry( *new, tree_node, branch );
-		
+			
 	while(curr)
 	{
 		if (curr_node->val > new_node->val)
 		{	 
 			parent = curr;
+			
 			curr = TO_LEFT(curr);			
 		}
 		else if (curr_node->val < new_node->val)
@@ -141,7 +141,7 @@ int add_tnode(branch_tree *root, branch_tree *new)
 			parent = curr;
 			curr = TO_RIGHT(curr);
 		}
-		else return 1;
+		else goto out;
 
 		if (curr)
 			curr_node =	list_entry( *curr, tree_node, branch );
@@ -159,9 +159,19 @@ int add_tnode(branch_tree *root, branch_tree *new)
 	{
 		parent->right = curr;
 	}
-	else return 1;
+	else goto out;
+
+	res = pthread_mutex_unlock(&root->t_lock);
+	if (res != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
 
 	return 0;
+out:
+	res = pthread_mutex_unlock(&root->t_lock);
+	if (res != 0)
+		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
+	return 1;
 }
 
 unsigned get_num_nodes(branch_tree *root)
@@ -180,18 +190,19 @@ void search_tnode(branch_tree *root, unsigned key, branch_tree **node, branch_tr
 		{
 			*parent = *node;
 			*node = TO_LEFT(*node);
+
 		}
 		else if (GET_NODE_KEY(*node) < key )
 		{
 			*parent = *node;
 			*node = TO_RIGHT(*node);
+
 		}
 		else 
 		{
 			return;
 		}
 	}
-
 
 //	if (!(*node))
 //		printf("Key %d not found\n", key);
@@ -209,10 +220,12 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 	branch_tree *nnode = NULL; 
 	branch_tree *oparent = NULL;
 	branch_tree *nparent = NULL;
-	
+
 	search_tnode(root, key, &onode, &oparent);
+
 	if (onode)
 	{
+
 //		printf(">> old_node: %d, old_parent: %d\n", GET_NODE_KEY(onode), GET_NODE_KEY(oparent));   
 
 		if (IS_LEAF(onode) && (onode!=root))
@@ -240,6 +253,7 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 		}
 		else // key is root
 		{
+			
 			if (TO_LEFT(onode))
 			{
 				nnode = onode->left;
@@ -257,8 +271,10 @@ branch_tree *delete_tnode(branch_tree *root, unsigned int key)
 			}
 		}  
 	}
-	else return root;
-
+	else
+	{ 
+		return root;
+	}
 	if (!nparent) 
 	{
 		root = nnode;
@@ -313,6 +329,10 @@ unsigned int walk_tree_preorder(branch_tree *root,
 	list_head *phead = calloc(1, sizeof(list_head));
 	INIT_HEAD(phead);
 
+//	int res = pthread_mutex_lock(&(root->t_lock));
+//	if (res != 0)
+//		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
 	branch_tree *parent = root;
 	branch_tree *curr = root;
 
@@ -351,6 +371,11 @@ unsigned int walk_tree_preorder(branch_tree *root,
 
  	free(list_node);
 	free(phead);
+
+//	res = pthread_mutex_unlock(&(root->t_lock));
+//	if (res != 0)
+//		printf("Error: %s:%d:%s\n",__FUNCTION__, __LINE__, strerror(errno));
+
 	return idx;
 }
 
@@ -501,10 +526,10 @@ unsigned walk_tree_inorder(branch_tree *root,
 	return idx;
 }
 
-void print_tree(branch_tree *root,  unsigned int depth)
+void print_tree(branch_tree *root)
 {
 	ptree_struct ptree;
-
+	unsigned int depth = 1024;
  	ll_node_tree *list_node = malloc(sizeof(ll_node_tree));
 	list_head *phead = calloc(1, sizeof(list_head));
 	INIT_HEAD(phead);
